@@ -1,0 +1,28 @@
+$cor-laranja: #FF7C00;
+$cor-cinza: #ECECEC;
+$cor-vermelha: #FA0000;
+
+
+* {
+  padding: 0;
+  border: 0;
+  margin: 0;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  color: #fff;
+}
+
+header{
+  float: left;
+  height: 100px;
+  width: 100%;
+  position: absolute;
+  top: 0%;
+  padding-top: 4%;
+  left: 2%;
+}
+
+
+
