@@ -4,7 +4,6 @@ import './Home.scss';
 import logo from '../../assets/logo-princ.jpg';
 import End from '../../assets/ende.jpg';
 import Cara from '../../assets/Heavy_box.gif';
-import Bloco from '../../assets/bloco1.png';
 
 function Home() {
   return (
@@ -24,7 +23,6 @@ function Home() {
         </main>
         <div className="images">
           <img src={Cara} alt="Pessoa" />
-          <img src={Bloco} alt="Bloco" />
         </div>
       </div>
     </>
