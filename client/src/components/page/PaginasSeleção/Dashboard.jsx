@@ -3,25 +3,32 @@ import { Link } from 'react-router-dom';
 import './Dash.scss'; 
 import Logo from '../../assets/bloco1.png';
 
-const Dashboard = () => {
-  return (
-    <div className='conteiner'>
-      <h2>Endereçamento</h2>
+const Dashboard = () => (
+    <div className='main-container'>
+        <h2>Endereçamento</h2>
 
-      <div className='main-container' />
-      im
+        <div className='container-wrapper'>
+            <div className='container'>
+                <div className="square-container">
 
+                    <h4>Pesquisar</h4>    
+                    <Link to='/consultag'>  <button>Verificar</button> </Link>
+                </div>
+            </div>
 
+            <div className='container'>
+                <div className="square-container">
 
+                    <h4>Cadastrar</h4>
+                  <Link to='/cadastrogeral'>  <button>Verificar</button> </Link>
+                </div>
+            </div>
+        </div>
 
-
-<div className="bloc">
-
-<img src={Logo} alt="bolha" />
-
-</div>
+        <div className="bloc">
+            <img src={Logo} alt="bolha" />
+        </div>
     </div>
-  );
-};
+);
 
 export default Dashboard;

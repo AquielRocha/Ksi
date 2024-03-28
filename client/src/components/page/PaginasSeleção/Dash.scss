@@ -1,42 +1,50 @@
-
-:root {
-  --default-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC",
-    "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei",
-    "Source Han Sans CN", sans-serif;
-}
-
-
-
+$cor-laranja: #FF7C00;
+$cor-cinza: #ECECEC;
+$cor-vermelha: #FA0000;
 
 .main-container {
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.main-container,
-.main-container * {
-  box-sizing: border-box;
+.container-wrapper {
+  display: flex;
+  justify-content: space-between; /* Espaçamento igual entre os contêineres */
+  width: 100%; /* Para garantir que os contêineres ocupem a largura total */
 }
 
-input,
-select,
-textarea,
-button {
-  outline: 0;
+.container {
+  flex: 1; /* Para que cada contêiner ocupe a mesma quantidade de espaço */
+  margin: 20px; /* Espaçamento entre os contêineres */
 }
 
-.main-container {
-  position: relative;
-  width: 613px;
-  height: 899px;
-  margin: 0 auto;
+.container .square-container {
+  width: 200px; /* tamanho do quadrado */
+  height: 300px; /* tamanho do quadrado */
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  color: black;
+}
+
+
+.bloc {
+  position: absolute;
+  top: 50px;
+  right: 20px;
   
-  background-size: cover;
 }
+
 
 img{
-  width: 70% !important;
-  height: 50% !important;
-
-  
+  width: 70px;
+  height: 50%;
+  position: relative; 
+  border-radius: 60px;
 }
