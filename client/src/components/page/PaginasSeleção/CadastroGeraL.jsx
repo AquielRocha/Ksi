@@ -23,7 +23,7 @@ const CadastroGeral = () => {
       {/* Exibir o Cadastro ou o conteúdo correspondente */}
       {showCadastro ? (
         <div>
-          <h1>Cadastro</h1>
+          <h1 >Cadastro</h1>
           <p>Selecione uma opção de cadastro:</p>
           {/* Botões para mostrar o conteúdo correspondente de cadastro */}
           <button className='btn-log' onClick={() => { fecharAbasCadastro(); setShowCadastroProduto(true); setShowCadastro(false); }}>Produto</button>
