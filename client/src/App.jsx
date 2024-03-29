@@ -1,16 +1,20 @@
 import React from 'react';
+import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './components/page/PaginasSeleção/Home'
-import Login from './components/page/Login/Login';
-import Register from './components/page/Register/Register';
-import CadastroProduto from './components/page/Crud/CadastroProduto';
-import CadastroEndereco from './components/page/Crud/CadastroEndereco';
-import CadastroLocal from './components/page/Crud/CadastroLocal';
-import CadastroGeral from './components/page/PaginasSeleção/CadastroGeraL';
-import Dashboard from './components/page/PaginasSeleção/Dashboard';
-import ConsultaGeral from './components/page/Crud/ConsultaGeral';
-import ConsultaEndereco from './components/page/Crud/ConsultaEndereco';
-import ConsultarProduto from './components/page/Crud/ConsultaProduto';
+import Home from './Home';
+import Dashboard from './Components/Pages/Dashboard/Dashboard';
+import Login from './Components/Pages/Login/Login';
+import Register from './Components/Pages/Register/Register';
+import CadastroProduto from './Components/Pages/Cadaster/CadastroProduto';
+import CadastroEndereco from './Components/Pages/Cadaster/CadastroEndereco';
+import CadastroLocal from './Components/Pages/Cadaster/CadastroLocal';
+import ConsultaGeral from './Components/Pages/Consult/ConsultaGeral';
+import ConsultaEndereco from './Components/Pages/Consult/ConsultaEndereco';
+import ConsultarProduto from './Components/Pages/Consult/ConsultaProduto';
+import CadastroGeral from './Components/Pages/GeneralRegistration/CadastroGeral';
+
+
+
 function App() {
   return (
     <Router>

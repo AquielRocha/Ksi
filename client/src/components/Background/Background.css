@@ -1,0 +1,12 @@
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-color: white; /* Adicione essa linha para definir a cor de fundo */
+  background-image: url('./fundo.png');
+  background-size: cover;
+  background-position: center;
+}

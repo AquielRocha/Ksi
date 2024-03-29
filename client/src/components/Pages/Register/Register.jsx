@@ -5,7 +5,7 @@ import { RiLockPasswordLine } from 'react-icons/ri';
 import { IoMdMail } from 'react-icons/io';
 import axios from 'axios';
 import '../Login/login.scss';
-
+import Background from '../../Background/Background';
 
 //variaveis a ser usadas para essa função
 const Register = () => {
@@ -85,6 +85,7 @@ const Register = () => {
           </form>
         </div>
       </div>
+      <Background />
     </div>
   );
 };

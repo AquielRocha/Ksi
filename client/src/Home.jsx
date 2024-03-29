@@ -1,19 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Home.scss';
-import logo from '../../assets/logo-princ.jpg';
-import End from '../../assets/ende.jpg';
-import Cara from '../../assets/Heavy_box.gif';
+import logo from './Components/Assets/logo-princ.jpg';
+import Cara from './Components/Assets/Heavy_box.gif';
+import Header from './Components/Header/Headers';
+import Background from './Components/Background/Background';
 
 function Home() {
   return (
     <>
-      <header>
-        <img src={End} alt="Endereço" />
-      </header>
+
       
       <div className="container">
         <main>
+          <Header />
           <img src={logo} alt="Logo" />
           <h1>Bem Vindo</h1>
           <div className="buttons">
@@ -24,6 +23,7 @@ function Home() {
         <div className="images">
           <img src={Cara} alt="Pessoa" />
         </div>
+        <Background />
       </div>
     </>
   );
