@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./CadastroGeral.scss";
-import CadastroProduto from "../Cadaster/CadastroProduto";
-import CadastroEndereco from "../Cadaster/CadastroEndereco";
-import CadastroLocal from "../Cadaster/CadastroLocal";
-import Header from "../../Header/Headers";
-
+import CadastroProduto from '../Product/CadastroProduto'
+import CadastroEndereco from '../Adress/CadastroEndereco' 
+import CadastroLocal from '../Locale/CadastroLocal'
+import Header from '../../Components/Header/Headers'
+import Background from "../../Components/Background/Background";
 
 
 
@@ -26,6 +26,8 @@ const CadastroGeral = () => {
   return (
     <div className="cadastro">
       <Header />
+      <Background />
+
 
       {/* Exibir o Cadastro ou o conteúdo correspondente */}
       {showCadastro ? (

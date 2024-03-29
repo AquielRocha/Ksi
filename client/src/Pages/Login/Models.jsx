@@ -14,7 +14,7 @@ const LoginModels = () => {
       if (response.data.error) {
         setError('Usuário ou senha incorretos');
       } else {
-        window.location.href = '/cadastrogeral';
+        window.location.href = '/dashboard';
       }
     } catch (error) {
       if (error.response.status === 401) {

@@ -1,18 +1,20 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { FaUser } from 'react-icons/fa';
-import { RiLockPasswordLine } from 'react-icons/ri';
-import './login.scss';
-import Background from '../../Background/Background';
-import Header from '../../Header/Headers';
-const LoginView = ({ userName, password, handleLogin, setUserName, setPassword, error }) => {
-  
-  
-  
+import React from "react";
+import { Link } from "react-router-dom";
+import { FaUser } from "react-icons/fa";
+import { RiLockPasswordLine } from "react-icons/ri";
+import Background from "../../Components/Background/Background";
+import Header from "../../Components/Header/Headers";
+const LoginView = ({
+  userName,
+  password,
+  handleLogin,
+  setUserName,
+  setPassword,
+  error,
+}) => {
   return (
-
     <div className="body">
-      <Link to={'/'}>
+      <Link to={"/"}>
         <button>Página Principal</button>
       </Link>
 

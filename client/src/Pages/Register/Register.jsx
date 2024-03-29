@@ -1,47 +1,47 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { FaUser } from 'react-icons/fa';
-import { RiLockPasswordLine } from 'react-icons/ri';
-import { IoMdMail } from 'react-icons/io';
-import axios from 'axios';
-import '../Login/login.scss';
-
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { FaUser } from "react-icons/fa";
+import { RiLockPasswordLine } from "react-icons/ri";
+import { IoMdMail } from "react-icons/io";
+import axios from "axios";
+import Background from "../../Components/Background/Background";
+import Header from "../../Components/Header/Headers";
 
 //variaveis a ser usadas para essa função
 const Register = () => {
-  const [userName, setUserName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
-
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   // operação para enviar dados para o banco de dados
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3002/usuario', {
+      const response = await axios.post("http://localhost:3002/usuario", {
         nome: userName,
         email,
         senha: password,
       });
       console.log(response.data);
       // Exibir mensagem de sucesso apos se cadastrar
-      setSuccessMessage('Cadastro realizado com sucesso');
+      setSuccessMessage("Cadastro realizado com sucesso");
       // Limpar o formulário apos se cadastrar
-      setUserName('');
-      setEmail('');
-      setPassword('');
+      setUserName("");
+      setEmail("");
+      setPassword("");
     } catch (error) {
-      setError('Erro ao se cadastrar. Por favor, tente novamente mais tarde.');
+      setError("Erro ao se cadastrar. Por favor, tente novamente mais tarde.");
     }
   };
 
   return (
     <div>
-      <Link to={'/'}>
+      <Link to={"/"}>
         <button>Página Principal</button>
       </Link>
+      <Header />
 
       <div className="conteiner">
         <div className="login-form">

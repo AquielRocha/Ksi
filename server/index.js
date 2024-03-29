@@ -12,7 +12,7 @@ const db = mysql.createConnection({
   user: "root",
   host: "localhost",
   password: "",
-  database: "novo",
+  database: "novobanco",
 });
 
 // Conectar ao banco de dados

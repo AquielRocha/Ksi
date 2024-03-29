@@ -10,6 +10,7 @@ function Endereco() {
     apartamento: ''
   });
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,6 +28,8 @@ function Endereco() {
 
       // Verificar se a resposta é OK (código 200)
       if (response.status === 200) {
+        setSuccessMessage('Endereço inserido com sucesso');
+
   
       } else {
         throw new Error('Erro ao adicionar endereço');
@@ -58,7 +61,11 @@ function Endereco() {
           <label htmlFor="apartamento">Apartamento:</label>
           <input type="text" id="apartamento" name="apartamento" value={endereco.apartamento} onChange={handleChange} />
         </div>
-        <button type="submit">Adicionar Endereço</button>
+        {error && <div className="error">{error}</div>}
+        {successMessage && <div className="success">{successMessage}</div>}
+        <button type="submit" className="btn-re">
+          Adicionar
+        </button>
       </form>
     </div>
   );

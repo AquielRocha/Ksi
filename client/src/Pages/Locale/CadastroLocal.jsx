@@ -5,6 +5,7 @@ import axios from 'axios';
 const Local = () => {
   const [nomeLocal, setNomeLocal] = useState('');
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -13,6 +14,7 @@ const Local = () => {
       const response = await axios.post('http://localhost:3002/local', { nome: nomeLocal });
 
       if (response.status === 200) {
+        setSuccessMessage('Local inserido com sucesso');
         setNomeLocal('');
       } else {
         throw new Error('Erro ao adicionar local');
@@ -22,12 +24,11 @@ const Local = () => {
       setError('Ocorreu um erro ao adicionar local');
     }
   };
-
+ 
   return (
     <div>
       <h1>Gerenciamento de Locais</h1>
       <Link to={'/'}><button>Voltar</button></Link>
-      {error && <div>{error}</div>}
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -35,7 +36,11 @@ const Local = () => {
           value={nomeLocal}
           onChange={(event) => setNomeLocal(event.target.value)}
         />
-        <button type="submit">Adicionar</button>
+        {error && <div className="error">{error}</div>}
+        {successMessage && <div className="success">{successMessage}</div>}
+        <button type="submit" className="btn-re">
+          Adicionar
+        </button>
       </form>
     </div>
   );
