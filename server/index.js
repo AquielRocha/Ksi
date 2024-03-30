@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const mysql = require("mysql");
 const cors = require("cors");
+const multer = require("multer");
 
 // Configuração do Express
 app.use(express.json());
@@ -22,6 +23,33 @@ db.connect((err) => {
   } else {
     console.log("Conectado ao banco de dados MySQL");
   }
+});
+
+// Configuração do multer para upload de imagens
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./uploads"); // Especifica o diretório onde os uploads serão salvos
+  },
+  filename: function (req, file, cb) {
+    // Adicionando timestamp ao nome do arquivo para torná-lo único
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, uniqueSuffix + "-" + file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage });
+
+// Rota para lidar com o upload de imagens
+app.post("/upload", upload.single("imagem"), (req, res) => {
+  // Verifica se o arquivo foi enviado corretamente
+  if (!req.file) {
+    return res.status(400).send("Nenhum arquivo enviado.");
+  }
+
+  console.log("Arquivo enviado:", req.file);
+
+  // Retorna o caminho do arquivo enviado
+  res.send({ imagePath: req.file.path });
 });
 
 // Inserir novo usuário
@@ -231,12 +259,14 @@ app.delete("/local/:id", (req, res) => {
   });
 });
 
-// Adicionar novo produto
-app.post("/produto", (req, res) => {
-  const { nome, codigo_barras, local_id, imagem } = req.body;
+
+//novo prodiuto 
+app.post("/produto", upload.single("imagem"), (req, res) => {
+  const { nome, descricao, codigo_barras, local_id } = req.body;
+  const nomeImagem = req.file.filename; // Nome do arquivo enviado pelo multer
   const SQL =
-    "INSERT INTO produto (nome, codigo_barras, local_id, imagem) VALUES (?, ?, ?, ?)";
-  db.query(SQL, [nome, codigo_barras, local_id, imagem], (err, result) => {
+    "INSERT INTO produto (nome, descricao, codigo_barras, local_id, imagem) VALUES (?, ?, ?, ?, ?)";
+  db.query(SQL, [nome, descricao, codigo_barras, local_id, nomeImagem], (err, result) => {
     if (err) {
       console.error("Erro ao inserir produto:", err);
       res.status(500).send({ error: "Erro interno do servidor" });
@@ -246,6 +276,7 @@ app.post("/produto", (req, res) => {
     }
   });
 });
+
 
 // Consultar todos os produtos
 app.get("/produto", (req, res) => {
@@ -297,3 +328,6 @@ const PORT = process.env.PORT || 3002;
 app.listen(PORT, () => {
   console.log(`Servidor está funcionando na porta ${PORT}`);
 });
+
+
+

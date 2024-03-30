@@ -5,7 +5,7 @@
   position: fixed;
   top: 0; /* Garante que o cabeçalho fique no topo da página */
   background-color: #ffffff; /* Cor de fundo do cabeçalho, se desejar */
-  z-index: 999; /* Garante que o cabeçalho esteja acima de outros elementos */
+  z-index: 9999; /* Garante que o cabeçalho esteja acima de outros elementos */
   height: 80px; /* Ajuste a altura do cabeçalho */
 }
 

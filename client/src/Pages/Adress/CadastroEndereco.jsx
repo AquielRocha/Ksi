@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 import axios from 'axios'; // Importe o Axios
 
 function Endereco() {
-  const [endereco, setEndereco] = useState({
+  const initialState = {
     rua: '',
     predio: '',
     andar: '',
     apartamento: ''
-  });
+  };
+
+  const [endereco, setEndereco] = useState(initialState);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
@@ -29,8 +31,7 @@ function Endereco() {
       // Verificar se a resposta é OK (código 200)
       if (response.status === 200) {
         setSuccessMessage('Endereço inserido com sucesso');
-
-  
+        setEndereco(initialState); // Limpar o formulário
       } else {
         throw new Error('Erro ao adicionar endereço');
       }

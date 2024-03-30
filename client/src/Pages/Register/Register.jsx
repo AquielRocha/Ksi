@@ -37,13 +37,16 @@ const Register = () => {
   };
 
   return (
-    <div>
+    
+    <div>      <Header />
+
+      
       <Link to={"/"}>
         <button>Página Principal</button>
       </Link>
-      <Header />
 
       <div className="conteiner">
+        
         <div className="login-form">
           <h1 className="hlo">Register</h1>
           <form onSubmit={handleRegister}>

@@ -29,3 +29,49 @@
   background-color: #fff;
   margin-bottom: 20px;
 }
+
+
+
+//PARTE CONSULTA GERAL
+
+.frot {
+  display: flex; /* Exibe os elementos em linha (horizontalmente) */
+  align-items: center; /* Alinha os itens verticalmente ao centro */
+  justify-content: space-between; /* Distribui o espaço entre os itens */
+  color: #f9f9f9;
+  background-color: orange;
+  width: 40rem;
+  margin-top: -50%;
+}
+
+/* Estilos para o ícone de pesquisa */
+.frot svg {
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+/* Estilos para os botões de filtro */
+.frot label {
+  margin-right: 10px;
+}
+
+/* Estilos para o input de pesquisa */
+.frot input[type="text"] {
+  width: 200px;
+  margin-right: 50px;
+}
+
+/* Estilos para o botão de pesquisa */
+.frot button[type="submit"] {
+  background-color: #4b0d0d;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Estilos para os radio buttons */
+.frot input[type="radio"] {
+  margin-right: 5px;
+}

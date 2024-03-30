@@ -4,6 +4,8 @@ $cor-laranja: #FF7C00;
 $cor-cinza: #ECECEC;
 $cor-vermelha: #FA0000;
 
+
+
 .main-container {
   display: flex;
   flex-direction: column;
@@ -12,9 +14,11 @@ $cor-vermelha: #FA0000;
 
 .container-wrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; // Distribui os containers ao longo do espaço disponível
+  gap: 20px; // Define o espaço entre os containers
   width: 100%;
 }
+
 
 .container {
   flex: 1;
