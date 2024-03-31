@@ -4,7 +4,7 @@ import './hd.css';
 const Header = () => {
   return (
     <header>
-      <img src={End} alt="Header" style={{ width: '306px', height: '84px' }} /> 
+      <img src={End} alt="Header" style={{ width: '250px', height: '60px' }} /> 
     </header>
   );
 };

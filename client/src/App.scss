@@ -1,0 +1,254 @@
+//geral
+
+
+* {
+  padding: 0;
+  border: 0;
+  margin: 0;
+}
+
+body {
+  margin: 0;
+  font-family: GelinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, Times, serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+
+  
+}
+
+//pagina home
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+
+* {
+    padding : 0;
+    border: 0;
+    margin: 0;
+}
+
+body {
+    background-color: #ffffff;
+    
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+}
+
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    height: 550px;
+    margin-right: 36rem;
+    margin-top: 60px;
+    background-color: white;
+    box-shadow: 0px 20px 43px 0px rgba(0,0,0,0.40),0px 20px 30px -12px rgba(0,0,0,0.1);
+    border-radius: 10px;
+}
+
+.passo-1{
+    font-family: "Space Grotesk", sans-serif;
+    text-transform: uppercase;
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50%;
+}
+
+.images {
+    position: relative;
+    float: right;
+    width: 700px;
+}
+
+.seg-img {
+    width: 45px;
+    height: 50px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.buttons{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-register,
+.button-login,
+.button-init {
+    font-family: "Space Grotesk", sans-serif;
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 500;
+    width: 250px;
+    height: 60px;
+    border: none;
+    cursor: pointer;
+    background-color: #FF7C00;
+    color: #ffffff;
+    border-radius: 10px;    
+}
+
+span {
+    font-family: "Space Grotesk", sans-serif;
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: bolder;
+    margin: 20px 0 20px 0;
+}
+
+header {
+    margin-left: 20px;
+}
+
+@media screen and (max-width: 1024px) and (max-height: 768px) {
+    /* Estilos para telas com largura máxima de 1024px e altura máxima de 768px */
+    main {
+        margin: 30px auto; /* Ajuste de margem para telas menores */
+    }
+
+    .images {
+        max-width: 100%; /* Imagens ocupam 100% da largura disponível */
+    }
+}
+
+//fim da pagina home
+
+
+
+// Página DASHBOARD
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+
+$cor-laranja: #FF7C00;
+$cor-cinza: #ECECEC;
+$cor-vermelha: #FA0000;
+
+
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container-wrapper {
+  display: flex;
+  justify-content: space-between; // Distribui os containers ao longo do espaço disponível
+  gap: 20px; // Define o espaço entre os containers
+  width: 100%;
+}
+
+
+.container {
+  flex: 1;
+  margin: 20px;
+}
+
+.container .square1-container,
+.square2-container {
+  width: 300px;
+  height: 420px;
+  margin: 30px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 3px 17px 24px -3px rgba(0,0,0,0.6);
+  display: flex;
+  background-color: rgb(255, 255, 255);
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  color: rgb(0, 0, 0);
+}
+
+
+
+.Login,
+.Product {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.img-product {
+  width: 225px;
+
+}
+
+.btn {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 500;
+  padding: 15px;
+  width: 12rem;
+  height: 3.5rem;
+  color: white;
+  background-color: #FF7C00;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 1rem;
+}
+
+.btn:hover {
+  background-color: #fff;
+  color: $cor-laranja;
+  border: 1px solid $cor-laranja;
+  transition: ease 0.5s;
+}
+
+
+h4{
+  text-transform: uppercase;
+  margin-top: 1rem;
+  font-size: 22px;
+}
+
+
+@media only screen and (max-width: 768px) {
+  .container .square1-container,
+  
+  .square2-container {
+    width: 90%; /* Reduz a largura para preencher a tela */
+    margin: 20px auto; /* Centraliza horizontalmente */
+    height: auto; /* Define a altura automática */
+  }
+
+  .img-product {
+    width: 80%; /* Reduz a largura da imagem */
+    height: auto; /* Define a altura automática */
+  }
+
+  .btn {
+    width: 80%; /* Reduz a largura do botão */
+    font-size: 16px; /* Reduz o tamanho da fonte do botão */
+    height: auto; /* Define a altura automática */
+  }
+
+  header img {
+    width: 150px; /* Reduz a largura do logo */
+    height: auto; /* Define a altura automática */
+  }
+}
+
+//FIM PAGINA DASHBOARD
+
+
+
+
+

@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./Dash.scss";
 import Login from "../../Components/Assets/Login.svg";
 import Product from "../../Components/Assets/Product.svg";
 

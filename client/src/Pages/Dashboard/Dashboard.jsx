@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../../Components/Header/Headers";
 import Background from "../../Components/Background/Background";
-import View from "./View";
+import View from "./DashboardView";
 
 const Dashboard = () => (
   <>

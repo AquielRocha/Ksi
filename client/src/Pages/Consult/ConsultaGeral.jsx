@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Background from '../../Components/Background/Background';
 import { BsSearch } from "react-icons/bs";
-import './CadastroGeral.scss';
 import Header from '../../Components/Header/Headers';
+
 
 const ConsultaGeral = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -35,7 +35,7 @@ const ConsultaGeral = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <button type="submit">Pesquisar</button>
+          <button type="submit" className='oii'>Pesquisar</button>
         </form>
         <div>
           <h2>Filtrar por</h2>
@@ -64,6 +64,9 @@ const ConsultaGeral = () => {
       {renderResults()}
       <Link to="/detalhes">Visualizar</Link> {/* Link para a página de detalhes */}
       <Background />
+   
+   
+   
     </div>
   );
 };
