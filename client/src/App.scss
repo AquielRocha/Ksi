@@ -6,7 +6,6 @@
   padding: 0;
   border: 0;
   margin: 0;
-
 }
 
 body {
@@ -136,7 +135,7 @@ $cor-vermelha: #fa0000;
   display: flex;
   justify-content: space-between; // Distribui os containers ao longo do espaço disponível
   gap: 20px; // Define o espaço entre os containers
-  width: 100%;
+  width: 75%;
 }
 
 .container {
@@ -203,31 +202,28 @@ h4 {
 @media only screen and (max-width: 768px) {
   .container .square1-container,
   .square2-container {
-    width: 90%; 
-    margin: 20px auto; 
-    height: auto; 
+    width: 90%;
+    margin: 20px auto;
+    height: auto;
   }
 
   .img-product {
-    width: 80%; 
-    height: auto; 
+    width: 80%;
+    height: auto;
   }
 
   .btn {
-    width: 80%; 
-    font-size: 16px; 
+    width: 80%;
+    font-size: 16px;
   }
 
   header img {
-    width: 150px; 
-    height: auto; 
+    width: 150px;
+    height: auto;
   }
 }
 
 //FIM PAGINA DASHBOARD
-
-
-
 
 //PÁGINA DE LOGIN
 
@@ -235,9 +231,28 @@ $cor-laranja: #ff7c00;
 $cor-cinza: #ececec;
 $cor-vermelha: #fa0000;
 
-.mover{
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.alert {
+  color: #fa0000;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif,
+    Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-weight: 500;
+  animation: fadeIn 0.5s ease forwards; // Aplica a animação fadeIn
+}
+
+.mover {
   margin-right: 60rem;
-  
 }
 
 .login-form {
@@ -344,16 +359,15 @@ $cor-vermelha: #fa0000;
     height: auto;
     margin-right: auto; /* Define a margem direita como automática em telas menores */
     margin-left: auto; /* Centraliza o formulário na tela em telas menores */
-}
- 
-.mover{
+  }
+
+  .mover {
     margin: 10px;
     padding: 10px;
     height: auto;
     margin-right: auto; /* Define a margem direita como automática em telas menores */
     margin-left: auto; /* Centraliza o formulário na tela em telas menores */
-
-}
+  }
 
   .login-form .cont2 {
     order: -1;
@@ -367,4 +381,173 @@ $cor-vermelha: #fa0000;
 //FIM PÁGINA DE LOGIN
 
 // PÁGINA DE CADASTRO
+
+.register-form {
+  width: auto;
+  max-width: 300px;
+  border-radius: 10px;
+  box-shadow: 3px 17px 24px -3px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  color: rgb(0, 0, 0);
+  padding: 90px;
+  background-color: #ffffff;
+
+  .reg {
+    margin-bottom: 90px;
+    margin-top: -20px;
+
+    .lo {
+      width: 70px;
+      height: 80px;
+      margin-left: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+  }
+
+  .bax {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: -30px;
+    flex-direction: column;
+  }
+
+  .btn-re {
+    margin-top: 20px;
+    font-family: "Space Grotesk", sans-serif;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: 500;
+    width: 80%;
+    height: 60px;
+    border: none;
+    cursor: pointer;
+    background-color: #ff7c00;
+    color: #ffffff;
+    border-radius: 10px;
+    align-items: center;
+  }
+
+  .btn-re:hover {
+    background-color: #fff;
+    color: $cor-laranja;
+    border: 1px solid $cor-laranja;
+    transition: ease 0.5s;
+  }
+
+  .sp {
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    color: #000000;
+  }
+}
+
+.input-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.input-box input {
+  background-color: rgb(221, 221, 221);
+  width: 20rem; /* ajuste conforme necessário */
+  height: 35px;
+  border-radius: 5px;
+  border: none;
+  padding: 10px; /* ajuste conforme necessário */
+  margin-bottom: 20px;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  color: rgb(0, 0, 0);
+}
+.icon {
+  font-size: 20px;
+  margin-right: 10px; /* Adicionando margem à direita do ícone para separá-lo do input */
+}
+
+.input-box input:focus {
+  outline: none;
+}
+
+@media screen and (max-width: 600px) {
+  .register-form {
+    margin: 10px;
+    padding: 10px;
+    height: auto;
+    margin-right: auto; /* Define a margem direita como automática em telas menores */
+    margin-left: auto; /* Centraliza o formulário na tela em telas menores */
+  }
+
+  .mover {
+    margin: 10px;
+    padding: 10px;
+    height: auto;
+    margin-right: auto; /* Define a margem direita como automática em telas menores */
+    margin-left: auto; /* Centraliza o formulário na tela em telas menores */
+  }
+
+  .register-form .cont2 {
+    order: -1;
+  }
+
+  .register-form .btn-go {
+    width: 100%;
+  }
+}
+
+///consulta geral
+/// 
+.consulta-geral-container {
+  padding: 20px;
+}
+
+.resultados-list {
+  list-style: none;
+  padding: 0;
+}
+
+.resultado-item {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.resultado-item span {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.resultado-item strong {
+  font-weight: bold;
+  color: #333;
+}
+
+.editar-btn,
+.excluir-btn {
+  margin-left: 10px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.editar-btn:hover,
+.excluir-btn:hover {
+  background-color: #0056b3;
+}
 

@@ -3,7 +3,7 @@ import View from './View';
 import Models from './Models';
 
 const Login = () => {
-  const { userName, password, error, handleLogin, setUserName, setPassword } = Models();
+  const { userName, password, error, handleLogin, setUserName, setPassword, setError} = Models();
 
   return (
     <View
@@ -13,6 +13,7 @@ const Login = () => {
       handleLogin={handleLogin}
       setUserName={setUserName}
       setPassword={setPassword}
+      setError={setError}
     />
   );
 };

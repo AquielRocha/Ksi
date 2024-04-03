@@ -12,13 +12,13 @@ const LoginModels = () => {
       const response = await axios.post('http://localhost:3002/login', { userName, password });
       console.log(response.data);
       if (response.data.error) {
-        setError('Usuário ou senha incorretos');
+        setError('USUÁRIO OU SENHA INCORRETOS');
       } else {
         window.location.href = '/dashboard';
       }
     } catch (error) {
       if (error.response.status === 401) {
-        setError('Usuário ou senha incorretos');
+        setError('USUÁRIO OU SENHA INCORRETOS');
       } else {
         console.error(error);
         setError('Ocorreu um erro ao fazer login');
@@ -26,7 +26,7 @@ const LoginModels = () => {
     }
   };
 
-  return { userName, password, error, handleLogin, setUserName, setPassword };
+  return { userName, password, error, handleLogin, setUserName, setPassword, setError };
 };
 
 export default LoginModels;

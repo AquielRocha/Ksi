@@ -11,18 +11,22 @@ const LoginView = ({
   handleLogin,
   setUserName,
   setPassword,
+  setError,
   error,
 }) => {
   return (
     <div className="body">
-      {error && <div className="alert">{error}</div>}
+      
 <div className="mover">
       <div className="login-form">
+
         <div className="cont2">
           <img className="seg-img" src={logo} alt="Logo" />
 
           <h1 className="hlo">LOG IN</h1>
         </div>
+        
+        {error && <div className="alert">{error}</div>}
 
         <form onSubmit={handleLogin}>
           <div className="input-box">
