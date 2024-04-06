@@ -1,27 +1,38 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import Background from '../../Components/Background/Background';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import Background from "../../Components/Background/Background";
 import { BsSearch } from "react-icons/bs";
-import Header from '../../Components/Header/Headers';
+import Header from "../../Components/Header/Headers";
 
 const ConsultaGeral = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterOption, setFilterOption] = useState('endereco'); // Opções: endereco, produto
-  const [results, setResults] = useState([]); // Corrigido para inicializar com array vazio []
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterOption, setFilterOption] = useState("endereco"); // Opções: endereco, produto
+  const [results, setResults] = useState([]); // estado para inicializar com array vazio []
+  const [filterOn, setFilterOn] = useState(false); // Inicializar Filtro
+  const [dataFiltered, setDataFiltered] = useState([]); // results Filtrado
+
+//const [showConsult, setShowConsut] = useState(true); // Novo estado para controlar a exibição dos card/
+//const [showConsultProduto, setShowConsultProduto] = useState(false);
+  // [showConsultEndereco, setShowConsultEndereco] = useState(false);
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         let response;
-        if (filterOption === 'endereco') {
-          response = await axios.get(`http://localhost:3002/endereco?searchTerm=${searchTerm}`);
+        if (filterOption === "endereco") {
+          response = await axios.get(
+            `http://localhost:3002/endereco?searchTerm=${searchTerm}`
+          );
         } else {
-          response = await axios.get(`http://localhost:3002/produto?searchTerm=${searchTerm}`);
+          response = await axios.get(
+            `http://localhost:3002/produto?searchTerm=${searchTerm}`
+          );
         }
         setResults(response.data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
@@ -31,33 +42,74 @@ const ConsultaGeral = () => {
   // Função para renderizar os resultados
   const renderResults = () => {
     return (
-      <div>
+      <div className="results-container">
         <p>Resultados aqui</p>
-        <ul>
-          {results.map(result => (
-            <li key={result.id}>
-              {Object.entries(result).map(([key, value]) => (
-                <span key={key}>
-                  <strong>{key}: </strong>
-                  {value}
-                </span>
+        <ul className="results-list">
+          {dataFiltered !== undefined && filterOn == true
+            ? dataFiltered.map((result) => (
+                <li key={result.id}>
+                  <div className="result-item">
+                    {Object.entries(result).map(([key, value]) => (
+                      <span key={key} className="result-field">
+                        <strong>{key}: </strong>
+                        {value}
+                      </span>
+                    ))}
+                  </div>
+                </li>
+              ))
+            : results.map((result) => (
+                <li key={result.id}>
+                  <div className="result-item">
+                    {Object.entries(result).map(([key, value]) => (
+                      <span key={key} className="result-field">
+                        <strong>{key}: </strong>
+                        {value}
+                      </span>
+                    ))}
+                  </div>
+                </li>
               ))}
-            </li>
-          ))}
         </ul>
       </div>
     );
   };
 
+  // Lógica para lidar com a submissão do formulário de pesquisa]
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Lógica para lidar com a submissão do formulário de pesquisa
+    console.log(filterOption);
+    setFilterOn(true);
+    console.log(results);
+    if (filterOption == "produto") {
+      console.log(filterOption);
+      setDataFiltered(
+        results.filter(({ nome }) => {
+          return nome.toLowerCase() == searchTerm.toLowerCase();
+        })
+      );
+    }
+    if (filterOption == "endereco") {
+      console.log(filterOption);
+      setDataFiltered(
+        results.filter(({ predio }) => {
+          return predio.toLowerCase() == searchTerm.toLowerCase();
+        })
+      );
+    }
+    console.log(dataFiltered);
+  };
+
+  const OptionFilter = (e) => {
+    e.preventDefault();
+    setFilterOption(e.target.value);
+    setFilterOn(false);
   };
 
   return (
     <div>
       <Header />
-      <div className="frot">
+      <div className="search-container">
         <BsSearch />
         <form onSubmit={handleSubmit}>
           <input
@@ -66,9 +118,11 @@ const ConsultaGeral = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <button type="submit" className='oii'>Pesquisar</button>
+          <button type="submit" className="search-button">
+            Pesquisar
+          </button>
         </form>
-        <div>
+        <div className="filter-container">
           <h2>Filtrar por</h2>
           <div>
             <label>
@@ -76,8 +130,8 @@ const ConsultaGeral = () => {
               <input
                 type="radio"
                 value="endereco"
-                checked={filterOption === 'endereco'}
-                onChange={() => setFilterOption('endereco')}
+                checked={filterOption === "endereco"}
+                onChange={(e) => OptionFilter(e)}
               />
             </label>
             <label>
@@ -85,17 +139,31 @@ const ConsultaGeral = () => {
               <input
                 type="radio"
                 value="produto"
-                checked={filterOption === 'produto'}
-                onChange={() => setFilterOption('produto')}
+                checked={filterOption === "produto"}
+                onChange={(e) => OptionFilter(e)}
               />
             </label>
           </div>
         </div>
       </div>
       {renderResults()}
-      <Link to="/card">Visualizar</Link> {/* Link para a página de detalhes */}
+
+    {/*  <button
+            className="btn-log"
+            onClick={() => {
+              fecharAbasCadastro();
+              setShowConsultProduto(true);
+              setShowConsult(false);
+
+              <Link to="/card">Visualizar</Link> {/* Link para a página de detalhes */}
+
+            }}
+
       <Background />
-    </div>
+          </div>
+
+
+          
   );
 };
 
