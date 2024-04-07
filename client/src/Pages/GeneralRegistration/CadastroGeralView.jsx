@@ -1,4 +1,4 @@
-import React from "react";
+/*import React from "react";
 import { Link } from "react-router-dom";
 import "./CadastroGeral.scss";
 import CadastroProduto from "../Product/CadastroProduto";
@@ -23,13 +23,11 @@ const CadastroGeralView = ({
       <Header />
       <Background />
 
-      {/* Exibir o Cadastro ou o conteúdo correspondente*/}
-      {showCadastro ? (
+    /*  {showCadastro ? (
         <div>
           <h1>Cadastro</h1>
           <p>Selecione uma opção de cadastro:</p>
-          {/* Botões para mostrar o conteúdo correspondente de cadastro */}
-          <button
+       /*   <button
             className="btn-log"
             onClick={() => {
               fecharAbasCadastro();
@@ -59,18 +57,15 @@ const CadastroGeralView = ({
         </div>
       ) : (
         <div>
-          {/* Renderização condicional dos componentes de cadastro */}
           {showCadastroProduto && <CadastroProduto />}
           {showCadastroEndereco && <CadastroEndereco />}
           {showCadastroLocal && <CadastroLocal />}
-          {/* Botão de voltar para a tela de Cadastro original */}
           <button className="btn-log" onClick={fecharAbasCadastro}>
             Voltar para o Cadastro
           </button>
         </div>
       )}
 
-      {/* Botão de voltar */}
       <button className="btn-log">
         <Link to="/">Voltar</Link>
       </button>
@@ -78,4 +73,4 @@ const CadastroGeralView = ({
   );
 };
 
-export default CadastroGeralView;
+export default CadastroGeralView;*/

@@ -1,0 +1,21 @@
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-color: white; /* Defina a cor de fundo desejada */
+  background-image: url('./fundo.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  // Adiciona uma transição suave para a mudança de tamanho da imagem de fundo
+  transition: background-size 0.5s ease;
+
+  // Ajusta o tamanho da imagem de fundo com base no tamanho da tela
+  @media screen and (max-width: 768px) {
+    background-size: contain; // Muda para contain em telas menores para garantir que toda a imagem seja visível
+  }
+}

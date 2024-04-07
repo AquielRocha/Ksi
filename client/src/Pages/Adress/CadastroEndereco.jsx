@@ -14,6 +14,21 @@ function Endereco() {
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
+
+  const handleError = () => {
+    // Verifica se algum campo está vazio
+    if (
+      !endereco.rua.trim() ||
+      !endereco.predio.trim() ||
+      !endereco.andar.trim() ||
+      !endereco.apartamento.trim() // Remova a vírgula extra aqui
+    ) {
+      window.alert("Por favor, preencha todos os campos.")
+      return;
+    }
+  };
+
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEndereco(prevState => ({
@@ -43,31 +58,38 @@ function Endereco() {
 
   return (
     <div>
-      <h1>Gerenciamento de endereços</h1>
-      {error && <div>{error}</div>}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="rua">Rua:</label>
-          <input type="text" id="rua" name="rua" value={endereco.rua} onChange={handleChange} />
-        </div>
-        <div>
-          <label htmlFor="predio">Prédio:</label>
-          <input type="text" id="predio" name="predio" value={endereco.predio} onChange={handleChange} />
-        </div>
-        <div>
-          <label htmlFor="andar">Andar:</label>
-          <input type="text" id="andar" name="andar" value={endereco.andar} onChange={handleChange} />
-        </div>
-        <div>
-          <label htmlFor="apartamento">Apartamento:</label>
-          <input type="text" id="apartamento" name="apartamento" value={endereco.apartamento} onChange={handleChange} />
-        </div>
-        {error && <div className="error">{error}</div>}
-        {successMessage && <div className="success">{successMessage}</div>}
-        <button type="submit" className="btn-re">
-          Adicionar
-        </button>
-      </form>
+      <div className="cadss">
+        <h1>Gerenciamento de endereços</h1>
+      </div>
+
+      <div className="quadro">
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="rua">Rua:</label>
+            <input type="text" id="rua" name="rua" value={endereco.rua} onChange={handleChange} />
+          </div>
+          <div>
+            <label htmlFor="predio">Prédio:</label>
+            <input type="text" id="predio" name="predio" value={endereco.predio} onChange={handleChange} />
+          </div>
+          <div>
+            <label htmlFor="andar">Andar:</label>
+            <input type="text" id="andar" name="andar" value={endereco.andar} onChange={handleChange} />
+          </div>
+          <div>
+            <label htmlFor="apartamento">Apartamento:</label>
+            <input type="text" id="apartamento" name="apartamento" value={endereco.apartamento} onChange={handleChange} />
+          </div>
+        
+  
+        </form>
+        
+        <button type="submit" className='btt' onClick={handleError} >
+            Adicionar
+          </button>
+          {error && <div className="error">{error}</div>}
+          {successMessage && <div className="success">{successMessage}</div>}
+      </div>
     </div>
   );
 }

@@ -58,10 +58,12 @@ const Produto = () => {
   };
 
   return (
-    <div className="cadastro-produto-container">
-      <h1>Cadastro de Produto</h1>
-      <Link to="/">Página Principal</Link>
 
+    <>
+    <div className="cadss">
+      <h1>Cadastro de Produto</h1>
+</div>
+      <div className="quadro">
       <div className="cadastro-produto-form">
         <div className="input-container">
           <label htmlFor="nome">Nome do Produto:</label>
@@ -72,6 +74,7 @@ const Produto = () => {
             onChange={(e) => setNome(e.target.value)}
           />
         </div>
+
 
         <div className="input-container">
           <label htmlFor="descricao">Descrição:</label>
@@ -113,9 +116,10 @@ const Produto = () => {
           <Images setImagem={setImagem} />
         </div>
 
-        <button onClick={handleCadastroProduto}>Cadastrar Produto</button>
+        <button className="btt" onClick={handleCadastroProduto}>Cadastrar Produto</button>
       </div>
-    </div>
+     </div>
+    </>
   );
 };
 

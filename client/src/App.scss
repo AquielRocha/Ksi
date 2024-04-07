@@ -1,30 +1,36 @@
-//GERAL
-
+// GERAL
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap");
+
+$cor-laranja: #ff7c00;
+$cor-cinza: #ececec;
+$cor-vermelha: #fa0000;
 
 * {
   padding: 0;
   border: 0;
   margin: 0;
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: GelinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
-    Cantarell, "Open Sans", "Helvetica Neue", sans-serif, Times, serif;
+  font-family: "Space Grotesk", sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  width: 100pc;
+  min-height: 100vh;
   background-color: #f0f0f0;
+  overflow: hidden; // Impede a rolagem da página
 }
 
-//pagina home
-
-.container {
+// PÁGINA HOME
+.container-s {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15em;
 }
 
 main {
@@ -33,9 +39,9 @@ main {
   justify-content: center;
   align-items: center;
   width: 400px;
+  max-width: 90%;
   height: 550px;
-  margin-right: 20rem;
-  margin-top: 60px;
+  margin: 60px 20px;
   background-color: white;
   box-shadow: 0px 20px 43px 0px rgba(0, 0, 0, 0.4),
     0px 20px 30px -12px rgba(0, 0, 0, 0.1);
@@ -50,42 +56,27 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 50%;
-}
-
-.images {
-  position: relative;
-  float: right;
-  width: 700px;
-}
-
-.seg-img {
-  width: 45px;
-  height: 50px;
-  align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 35px;
+  gap: 20px;
 }
 
 .buttons {
   width: 100%;
-  height: 50%;
   display: flex;
-  flex-direction: column;
-  align-self: center;
   justify-content: center;
   align-items: center;
+  margin-top: 20px;
+  flex-direction: column;
 }
 
-.button-register,
-.button-login,
 .button-init {
   font-family: "Space Grotesk", sans-serif;
   text-transform: uppercase;
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 800;
   width: 250px;
   height: 60px;
+  margin: 10px;
   border: none;
   cursor: pointer;
   background-color: #ff7c00;
@@ -93,38 +84,270 @@ main {
   border-radius: 10px;
 }
 
+.button-init:hover {
+  background-color: #fff;
+  color: $cor-laranja;
+  border: 1px solid $cor-laranja;
+  transition: ease 0.5s;
+}
+
 span {
   font-family: "Space Grotesk", sans-serif;
   text-transform: uppercase;
   font-size: 15px;
   font-weight: bolder;
-  margin: 20px 0 20px 0;
+  margin: 20px 0;
 }
 
 header {
   margin-left: 20px;
 }
 
-@media screen and (max-width: 1024px) and (max-height: 768px) {
-  /* Estilos para telas com largura máxima de 1024px e altura máxima de 768px */
+// Define uma variável para o tamanho máximo da imagem em pixels
+$maxImageSize: 700px;
+
+.seg-img {
+  width: 30%; // Garante que a imagem se ajuste ao contêiner
+  height: auto; // Mantém a proporção da imagem
+  margin-top: auto; // Define a margem superior automática para centralizar verticalmente
+  margin-bottom: auto; // Define a margem inferior automática para centralizar verticalmente
+}
+
+.images {
+  position: static;
+  max-width: $maxImageSize;
+  width: 140%; // Aumenta o tamanho da imagem
+  height: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: calc(
+    (100% - 110%) / 2
+  ); // Calcula a margem esquerda para centralizar a imagem horizontalmente
+}
+
+@media screen and (max-width: 768px) {
+  // Ajustes para telas menores
   main {
-    margin: 30px auto; /* Ajuste de margem para telas menores */
+    width: 90%;
+    margin-left: 5%; // Ajusta a margem esquerda para manter o conteúdo centralizado
+  }
+
+  .buttons {
+    flex-direction: column;
+    margin-left: 5%; // Ajusta a margem esquerda para manter o conteúdo centralizado
+  }
+
+  .button-init {
+    width: calc(100% - 20px);
   }
 
   .images {
-    max-width: 100%; /* Imagens ocupam 100% da largura disponível */
+    max-width: 80%;
+    width: 100%; // Ajusta o tamanho da imagem para ocupar 100% da largura do contêiner
+    margin-left: 0; // Remove a margem esquerda para manter a imagem centralizada
   }
 }
 
-//fim da pagina home
+// FIM PÁGINA HOME
 
+// PÁGINA DE LOGIN
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.alert {
+  color: #fa0000;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif,
+    Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-weight: 500;
+  animation: fadeIn 0.5s ease forwards; // Aplica a animação fadeIn
+}
+
+.form-container {
+  margin-left: 5vw; // Define a margem esquerda em relação à largura da viewport
+  margin-right: 5vw; // Define a margem direita em relação à largura da viewport
+}
+
+.login-form,
+.register-form {
+  width: 100%;
+  max-width: 500px; // Ajuste conforme necessário
+  border-radius: 10px;
+  box-shadow: 3px 17px 24px -3px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  color: rgb(0, 0, 0);
+  padding: 100px; // Ajuste conforme necessário
+  background-color: #ffffff;
+
+  .cont2 {
+    font-family: "Space Grotesk", sans-serif;
+    text-transform: uppercase;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 35px;
+    gap: 15px;
+
+    .seg-img {
+      width: 75px; // Ajuste conforme necessário
+      height: 90px; // Ajuste conforme necessário
+    }
+  }
+
+  .vtar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px; // Ajuste conforme necessário
+    flex-direction: column;
+  }
+
+  .btn-go,
+  .btn-re {
+    margin-top: 20px;
+    font-family: "Space Grotesk", sans-serif;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: 500;
+    width: 100%;
+    height: 60px;
+    border: none;
+    cursor: pointer;
+    background-color: #ff7c00;
+    color: #ffffff;
+    border-radius: 10px;
+    align-items: center;
+
+    &:hover {
+      background-color: #fff;
+      color: $cor-laranja;
+      border: 1px solid $cor-laranja;
+      transition: ease 0.5s;
+    }
+  }
+
+  .spaa,
+  .sp {
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    color: #000000;
+  }
+
+  .input-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+
+    input {
+      font-size: 15px;
+      height: 5rem;
+      background-color: rgb(221, 221, 221);
+      width: 25rem; // Alterado para ocupar toda a largura do contêiner
+      border-radius: 5px;
+      border: none;
+      padding: 9px 40px 8px 40px; // Ajustado o padding esquerdo para deixar espaço para o ícone
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 500;
+      color: rgb(0, 0, 0);
+
+      &:focus {
+        outline: none;
+        padding-left: 50px; // Ajuste do padding esquerdo quando o input está focado
+      }
+    }
+
+    .icon {
+      position: absolute;
+      left: 15px; // Posicionamento absoluto à esquerda do input
+      font-size: 20px;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .login-form,
+  .register-form {
+    padding: 40px; // Ajuste o padding conforme necessário
+  }
+
+  .cont2 {
+    margin-bottom: 30px; // Ajuste conforme necessário
+  }
+
+  .register-form {
+    margin-left: auto;
+    margin-right: auto;
+    // Centraliza o formulário na tela em telas menores
+  }
+}
+
+// FIM PÁGINA DE LOGIN
+
+// PÁGINA DE CADASTRO
+.register-form {
+  margin-left: 5vw; // Define a margem esquerda em relação à largura da viewport
+  margin-right: 5vw; // Define a margem direita em relação à largura da viewport
+}
+
+// Ajuste o estilo conforme necessário
+.reg {
+  font-family: "Space Grotesk", sans-serif;
+  text-transform: uppercase;
+  font-size: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 35px;
+  gap: 15px;
+
+  .lo {
+    width: 75px; // Ajuste conforme necessário
+    height: 90px; // Ajuste conforme necessário
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .register-form {
+    margin: 10px;
+    padding: 10px;
+    height: auto;
+    margin-right: auto;
+    // Define a margem direita como automática em telas menores
+    margin-left: auto;
+    // Centraliza o formulário na tela em telas menores
+  }
+
+  .register-form .cont2 {
+    order: -1;
+  }
+
+  .register-form .btn-go {
+    width: 100%;
+  }
+}
+
+// FIM CADASTRO
 // Página DASHBOARD
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap");
-
-$cor-laranja: #ff7c00;
-$cor-cinza: #ececec;
-$cor-vermelha: #fa0000;
-
 .main-container {
   display: flex;
   flex-direction: column;
@@ -133,22 +356,25 @@ $cor-vermelha: #fa0000;
 
 .container-wrapper {
   display: flex;
-  justify-content: space-between; // Distribui os containers ao longo do espaço disponível
-  gap: 20px; // Define o espaço entre os containers
-  width: 75%;
+  flex-wrap: wrap; /* Permite que os containers sejam distribuídos em várias linhas em telas menores */
+  justify-content: center; /* Centraliza os containers na tela */
+  gap: 25px; /* Define o espaço entre os containers */
+  width: 90%; /* Ajusta a largura para ocupar 90% da largura disponível */
+  max-width: 1000px; /* Define uma largura máxima para os containers */
+  margin: 0 auto; /* Centraliza os containers na tela */
 }
 
 .container {
   flex: 1;
+  width: 400px;
+  max-width: 100%; /* Garante que o container não exceda a largura máxima */
   margin: 20px;
 }
 
 .container .square1-container,
 .square2-container {
-  margin-right: 20rem;
-  width: 300px;
-  height: 420px;
-  margin: 30px;
+  width: 100%;
+  height: 490px;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 3px 17px 24px -3px rgba(0, 0, 0, 0.6);
@@ -171,6 +397,7 @@ $cor-vermelha: #fa0000;
 
 .img-product {
   width: 225px;
+  height: auto;
 }
 
 .btn {
@@ -188,8 +415,8 @@ $cor-vermelha: #fa0000;
 
 .btn:hover {
   background-color: #fff;
-  color: $cor-laranja;
-  border: 1px solid $cor-laranja;
+  color: #ff7c00;
+  border: 1px solid #ff7c00;
   transition: ease 0.5s;
 }
 
@@ -200,11 +427,14 @@ h4 {
 }
 
 @media only screen and (max-width: 768px) {
+  .container {
+    width: 90%; /* Ajusta a largura do container para ocupar 90% da largura disponível */
+    margin: 20px auto; /* Centraliza o container na tela */
+  }
+
   .container .square1-container,
   .square2-container {
-    width: 90%;
-    margin: 20px auto;
-    height: auto;
+    height: auto; /* Ajusta a altura automaticamente conforme o conteúdo */
   }
 
   .img-product {
@@ -222,292 +452,154 @@ h4 {
     height: auto;
   }
 }
+// FIM PAGINA DASHBOARD
 
-//FIM PAGINA DASHBOARD
 
-//PÁGINA DE LOGIN
 
-$cor-laranja: #ff7c00;
-$cor-cinza: #ececec;
-$cor-vermelha: #fa0000;
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
-.alert {
-  color: #fa0000;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif,
-    Haettenschweiler, "Arial Narrow Bold", sans-serif;
-  font-weight: 500;
-  animation: fadeIn 0.5s ease forwards; // Aplica a animação fadeIn
-}
-
-.mover {
-  margin-right: 60rem;
-}
-
-.login-form {
-  width: auto;
-  max-width: 300px;
-  border-radius: 10px;
-  box-shadow: 3px 17px 24px -3px rgba(0, 0, 0, 0.6);
+/*cadastro geral*/
+.headercad {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  flex-direction: row; /* Organiza os botões em uma linha */
+  background-color: $cor-laranja;
+  box-shadow: 3px 17px 24px -3px rgba(0, 0, 0, 0.37);
+}
+
+.cadss {
+  text-transform: uppercase;
+  margin-top: 2.5rem; /* Convertido para rem */
+  font-size: 1.5rem; /* Convertido para rem */
+  text-align: center;
+}
+
+.btn-log {
+  font-family: "Space Grotesk", sans-serif;
+  text-transform: uppercase;
+  font-size: 1.6rem; /* Convertido para rem */
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  background-color: $cor-laranja;
+  color: #ffffff;
+  border-radius: 0.2rem; /* Convertido para rem */
+  padding: 2.5rem; /* Convertido para rem */
+  width: 25rem;
+
+  &:hover {
+    background-color: rgb(221, 221, 221);
+    color: $cor-laranja;
+    transition: ease 0.5s;
+  }
+}
+
+.selected {
+  background-color: rgb(221, 221, 221);
+  color: $cor-laranja;
+}
+
+
+.btt{
+
+  margin-top: 20px;
+  font-family: "Space Grotesk", sans-serif;
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: 500;
+  width: 100%;
+  height: 60px;
+  border: none;
+  cursor: pointer;
+  background-color: #ff7c00;
+  color: #ffffff;
+  border-radius: 10px;
   align-items: center;
-  color: rgb(0, 0, 0);
-  padding: 90px;
-  background-color: #ffffff;
 
-  .cont2 {
-    align-items: center;
-    margin-bottom: 90px;
-    margin-top: -20px;
-
-    .seg-img {
-      width: 70px;
-      height: 80px;
-    }
-
-    h1 {
-      text-align: center;
-    }
-  }
-
-  .vtar {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    margin-top: 20px;
-    margin-bottom: -30px;
-    flex-direction: column;
-  }
-
-  .btn-go {
-    margin-top: 20px;
-    font-family: "Space Grotesk", sans-serif;
-    text-transform: uppercase;
-    font-size: 20px;
-    font-weight: 500;
-    width: 80%;
-    height: 60px;
-    border: none;
-    cursor: pointer;
-    background-color: #ff7c00;
-    color: #ffffff;
-    border-radius: 10px;
-    align-items: center;
-  }
-  .btn-go:hover {
+  &:hover {
     background-color: #fff;
     color: $cor-laranja;
     border: 1px solid $cor-laranja;
     transition: ease 0.5s;
   }
 
-  .spaa {
-    font-size: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    color: #000000;
-  }
 }
 
-.input-box {
-  position: relative;
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-.input-box input {
-  background-color: rgb(221, 221, 221);
-  width: 20rem; /* ajuste conforme necessário */
-  height: 35px;
-  border-radius: 5px;
-  border: none;
-  padding: 10px; /* ajuste conforme necessário */
-  margin-bottom: 20px;
-  font-family: "Space Grotesk", sans-serif;
-  font-weight: 500;
-  font-size: 15px;
-  color: rgb(0, 0, 0);
-}
-.icon {
-  font-size: 20px;
-  margin-right: 10px; /* Adicionando margem à direita do ícone para separá-lo do input */
-}
 
-.input-box input:focus {
-  outline: none;
-}
-
-@media screen and (max-width: 600px) {
-  .login-form {
-    margin: 10px;
-    padding: 10px;
-    height: auto;
-    margin-right: auto; /* Define a margem direita como automática em telas menores */
-    margin-left: auto; /* Centraliza o formulário na tela em telas menores */
-  }
-
-  .mover {
-    margin: 10px;
-    padding: 10px;
-    height: auto;
-    margin-right: auto; /* Define a margem direita como automática em telas menores */
-    margin-left: auto; /* Centraliza o formulário na tela em telas menores */
-  }
-
-  .login-form .cont2 {
-    order: -1;
-  }
-
-  .login-form .btn-go {
-    width: 100%;
-  }
-}
-
-//FIM PÁGINA DE LOGIN
-
-// PÁGINA DE CADASTRO
-
-.register-form {
-  width: auto;
-  max-width: 300px;
-  border-radius: 10px;
-  box-shadow: 3px 17px 24px -3px rgba(0, 0, 0, 0.6);
+.quadro {
+  width: 100%;
+  max-width: 68.5rem; /* Convertido para rem */
+  height: 25rem; /* Convertido para rem */
+  border-radius: 1rem; /* Convertido para rem */
+  box-shadow: 0.2rem 1.1rem 1.6rem -0.3rem rgba(0, 0, 0, 0.6); /* Convertido para rem */
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center; /* Centraliza verticalmente */
+  align-items: center; /* Centraliza horizontalmente */
   color: rgb(0, 0, 0);
-  padding: 90px;
+  padding: 1.5rem; /* Convertido para rem */
   background-color: #ffffff;
 
-  .reg {
-    margin-bottom: 90px;
-    margin-top: -20px;
 
-    .lo {
-      width: 70px;
-      height: 80px;
-      margin-left: 20px;
-    }
-
-    h1 {
-      text-align: center;
-    }
-  }
-
-  .bax {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    margin-top: 20px;
-    margin-bottom: -30px;
-    flex-direction: column;
-  }
-
-  .btn-re {
-    margin-top: 20px;
-    font-family: "Space Grotesk", sans-serif;
-    text-transform: uppercase;
-    font-size: 20px;
-    font-weight: 500;
-    width: 80%;
-    height: 60px;
-    border: none;
-    cursor: pointer;
-    background-color: #ff7c00;
-    color: #ffffff;
-    border-radius: 10px;
-    align-items: center;
-  }
-
-  .btn-re:hover {
-    background-color: #fff;
-    color: $cor-laranja;
-    border: 1px solid $cor-laranja;
-    transition: ease 0.5s;
-  }
-
-  .sp {
-    font-size: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    color: #000000;
-  }
+label {
+  color: $cor-laranja;
+  font-size: 1.25rem; /* Convertido para rem */
+  font-weight: 500;
+  text-transform: uppercase;
 }
 
-.input-box {
-  position: relative;
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-.input-box input {
+input {
+  margin-bottom: 1rem; /* Convertido para rem */
+  font-size: 0.9375rem; /* Convertido para rem */
+  height: 4rem; /* Convertido para rem */
   background-color: rgb(221, 221, 221);
-  width: 20rem; /* ajuste conforme necessário */
-  height: 35px;
-  border-radius: 5px;
+  width: 25rem; // Alterado para ocupar toda a largura do contêiner
+  border-radius: 0.625rem; /* Convertido para rem */
   border: none;
-  padding: 10px; /* ajuste conforme necessário */
-  margin-bottom: 20px;
+  padding: 1rem 2.5rem; /* Convertido para rem */
   font-family: "Space Grotesk", sans-serif;
   font-weight: 500;
-  font-size: 15px;
   color: rgb(0, 0, 0);
-}
-.icon {
-  font-size: 20px;
-  margin-right: 10px; /* Adicionando margem à direita do ícone para separá-lo do input */
-}
 
-.input-box input:focus {
-  outline: none;
-}
-
-@media screen and (max-width: 600px) {
-  .register-form {
-    margin: 10px;
-    padding: 10px;
-    height: auto;
-    margin-right: auto; /* Define a margem direita como automática em telas menores */
-    margin-left: auto; /* Centraliza o formulário na tela em telas menores */
+  &:focus {
+    outline: none;
   }
 
-  .mover {
-    margin: 10px;
-    padding: 10px;
-    height: auto;
-    margin-right: auto; /* Define a margem direita como automática em telas menores */
-    margin-left: auto; /* Centraliza o formulário na tela em telas menores */
-  }
 
-  .register-form .cont2 {
-    order: -1;
-  }
 
-  .register-form .btn-go {
-    width: 100%;
+}
+}
+
+@media only screen and (min-width: 48rem) {
+  /* Ajuste conforme necessário para telas maiores */
+  .quadro {
+    padding: 3.125rem; /* Convertido para rem */
   }
 }
+
+
+
+//fim pagina cadastroGERAL
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ///consulta geral
-/// 
 .consulta-geral-container {
   padding: 20px;
 }
@@ -550,4 +642,3 @@ $cor-vermelha: #fa0000;
 .excluir-btn:hover {
   background-color: #0056b3;
 }
-

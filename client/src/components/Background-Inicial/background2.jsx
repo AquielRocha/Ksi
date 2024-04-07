@@ -1,6 +1,6 @@
 import React from 'react';
 import Fundo from './oi.png';
-import './back.css';
+import './back.scss';
 
 const Background2 = () => {
   return (

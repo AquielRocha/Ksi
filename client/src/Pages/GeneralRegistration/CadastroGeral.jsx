@@ -1,89 +1,72 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import "./CadastroGeral.scss";
-import CadastroProduto from '../Product/CadastroProduto'
-import CadastroEndereco from '../Adress/CadastroEndereco' 
-import CadastroLocal from '../Locale/CadastroLocal'
+import CadastroProduto from "../Product/CadastroProduto";
+import CadastroEndereco from "../Adress/CadastroEndereco";
+import CadastroLocal from "../Locale/CadastroLocal";
 import Header from '../../Components/Header/Headers'
-import Background from "../../Components/Background/Background";
-
-
+import Background from '../../Components/Background/Background';
 
 
 const CadastroGeral = () => {
-  const [showCadastro, setShowCadastro] = useState(true); // Novo estado para controlar a exibição do Cadastro
-  const [showCadastroProduto, setShowCadastroProduto] = useState(false);
-  const [showCadastroEndereco, setShowCadastroEndereco] = useState(false);
-  const [showCadastroLocal, setShowCadastroLocal] = useState(false);
+  // Estado para armazenar o botão selecionado
+  const [selectedButton, setSelectedButton] = useState("");
 
-  // Função para fechar todas as abas de cadastro
-  const fecharAbasCadastro = () => {
-    setShowCadastroProduto(false);
-    setShowCadastroEndereco(false);
-    setShowCadastroLocal(false);
+  // Função para lidar com o clique no botão
+  const handleButtonClick = (buttonName) => {
+    setSelectedButton(buttonName); // Define o botão como selecionado
   };
 
   return (
-    <div className="cadastro">
+<>
+    <div className="cima">
       <Header />
+          </div>
+
       <Background />
+     <div className="cadastro">
+      {/* Renderização dos botões */}
+      <div className="headercad">
+        {/* Botão "Cadastro de Endereço" */}
+        <button
+          // Adiciona a classe 'selected' se o botão de endereço estiver selecionado
+          className={`btn-log ${selectedButton === "endereco" ? "selected" : ""}`}
+          // Define a função a ser executada quando o botão for clicado, passando "endereco" como parâmetro
+          onClick={() => handleButtonClick("endereco")}
+        >
+          Cadastro de Endereço
+        </button>
 
+        {/* Botão "Cadastro Local" */}
+        <button
+          // Adiciona a classe 'selected' se o botão de local estiver selecionado
+          className={`btn-log ${selectedButton === "local" ? "selected" : ""}`}
+          // Define a função a ser executada quando o botão for clicado, passando "local" como parâmetro
+          onClick={() => handleButtonClick("local")}
+        >
+          Cadastro Local
+        </button>
 
-      {/* Exibir o Cadastro ou o conteúdo correspondente */}
-      {showCadastro ? (
-        <div>
-          <h1>Cadastro</h1>
-          <p>Selecione uma opção de cadastro:</p>
-          {/* Botões para mostrar o conteúdo correspondente de cadastro */}
-          <button
-            className="btn-log"
-            onClick={() => {
-              fecharAbasCadastro();
-              setShowCadastroProduto(true);
-              setShowCadastro(false);
-            }}
-          >
-            Produto
-          </button>
-          <button
-            className="btn-log"
-            onClick={() => {
-              fecharAbasCadastro();
-              setShowCadastroEndereco(true);
-              setShowCadastro(false);
-            }}
-          >
-            Cadastro de Endereço
-          </button>
-          <button
-            className="btn-log"
-            onClick={() => {
-              fecharAbasCadastro();
-              setShowCadastroLocal(true);
-              setShowCadastro(false);
-            }}
-          >
-            Cadastro Local
-          </button>
-        </div>
-      ) : (
-        <div>
-          {/* Renderização condicional dos componentes de cadastro */}
-          {showCadastroProduto && <CadastroProduto />}
-          {showCadastroEndereco && <CadastroEndereco />}
-          {showCadastroLocal && <CadastroLocal />}
-          {/* Botão de voltar para a tela de Cadastro original */}
-          <button className="btn-log" onClick={() => setShowCadastro(true)}>
-            Voltar para o Cadastro
-          </button>
-        </div>
-      )}
-
-      {/* Botão de voltar */}
-      <button className="btn-log">
-        <Link to="/">Voltar</Link>
-      </button>
+        {/* Botão "Produto" */}
+        <button
+          // Adiciona a classe 'selected' se o botão de produto estiver selecionado
+          className={`btn-log ${selectedButton === "produto" ? "selected" : ""}`}
+          // Define a função a ser executada quando o botão for clicado, passando "produto" como parâmetro
+          onClick={() => handleButtonClick("produto")}
+        >
+          Produto
+        </button>
+      </div>
+      
+      {/* Exibir o conteúdo correspondente ao botão selecionado */}
+      {selectedButton === "produto" && <CadastroProduto />}
+      {selectedButton === "endereco" && <CadastroEndereco />}
+      {selectedButton === "local" && <CadastroLocal />}
     </div>
+
+      
+
+
+    </>
+  
   );
 };
 

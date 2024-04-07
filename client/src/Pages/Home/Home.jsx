@@ -12,20 +12,20 @@ function Home() {
     <>
 
       <Header />
-      <div className="container">
+      <div className="container-s">
         <main>
           <div className="passo-1">
             <img className='seg-img' src={logo} alt="Logo" />           
             <h1>Bem Vindo</h1>
           </div>
           <div className="buttons">
-            <Link className="button-register" to="/register">
+            <Link  to="/register">
                 <button className="button-init" >
                   Cadastro
                 </button>
               </Link>
-            <span>OU</span>
-            <Link className="button-login" to="/login">
+            <span >OU</span>
+            <Link to="/login">
                 <button className="button-init" >
                   Login
                 </button>

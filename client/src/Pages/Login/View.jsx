@@ -15,51 +15,49 @@ const LoginView = ({
   error,
 }) => {
   return (
-    <div className="body">
-      
-<div className="mover">
-      <div className="login-form">
+    <div>
+      <div className="mover">
+        <div className="login-form">
+          <div className="cont2">
+            <img className="seg-img" src={logo} alt="Logo" />
 
-        <div className="cont2">
-          <img className="seg-img" src={logo} alt="Logo" />
+            <h1 className="hlo">LOG IN</h1>
+          </div>
 
-          <h1 className="hlo">LOG IN</h1>
+          {error && <div className="alert">{error}</div>}
+
+          <form onSubmit={handleLogin}>
+            <div className="input-box">
+              <FaUser className="icon" />
+              <input
+                type="text"
+                placeholder="INSIRA SEU USUÁRIO"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+              />
+            </div>
+            <div className="input-box">
+              <RiLockPasswordLine className="icon" />
+              <input
+                type="password"
+                placeholder="INSIRA A SENHA "
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+
+            <div className="vtar">
+              <button type="submit" className="btn-go">
+                LOGAR
+              </button>
+              <Link to="/register" style={{ textDecoration: "none" }}>
+                <span className="spaa">NÃO TENHO CONTA</span>
+              </Link>
+            </div>
+          </form>
         </div>
-        
-        {error && <div className="alert">{error}</div>}
-
-        <form onSubmit={handleLogin}>
-          <div className="input-box">
-            <FaUser className="icon" />
-            <input
-              type="text"
-              placeholder="INSIRA SEU USUÁRIO"
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
-            />
-          </div>
-          <div className="input-box">
-            <RiLockPasswordLine className="icon" />
-            <input
-              type="password"
-              placeholder="INSIRA A SENHA "
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-
-          <div className="vtar">
-            <button type="submit" className="btn-go">
-              LOGAR
-            </button>
-            <Link to="/register" style={{ textDecoration: "none" }}>
-              <span className="spaa">NÃO TENHO CONTA</span>
-            </Link>
-          </div>
-        </form>
-        </div>
-
       </div>
+
       <Background2 />
     </div>
   );
