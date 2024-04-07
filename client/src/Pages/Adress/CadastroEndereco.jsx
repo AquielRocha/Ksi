@@ -1,58 +1,54 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios'; // Importe o Axios
+import React, { useState } from "react";
+import axios from "axios"; // Importe o Axios
 
 function Endereco() {
   const initialState = {
-    rua: '',
-    predio: '',
-    andar: '',
-    apartamento: ''
+    rua: "",
+    predio: "",
+    andar: "",
+    apartamento: "",
   };
 
   const [endereco, setEndereco] = useState(initialState);
-  const [error, setError] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
-
-
-  const handleError = () => {
-    // Verifica se algum campo está vazio
-    if (
-      !endereco.rua.trim() ||
-      !endereco.predio.trim() ||
-      !endereco.andar.trim() ||
-      !endereco.apartamento.trim() // Remova a vírgula extra aqui
-    ) {
-      window.alert("Por favor, preencha todos os campos.")
-      return;
-    }
-  };
-
+  const [message, setMessage] = useState(""); // Armazena a mensagem de sucesso ou erro
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setEndereco(prevState => ({
+    setEndereco((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await axios.post('http://localhost:3002/endereco', endereco); // Enviar os dados usando Axios
+    // Verifica se todos os campos estão preenchidos
+    if (
+      !endereco.rua.trim() ||
+      !endereco.predio.trim() ||
+      !endereco.andar.trim() ||
+      !endereco.apartamento.trim()
+    ) {
+      setMessage("Por favor, preencha todos os campos.");
+      return;
+    }
 
-      // Verificar se a resposta é OK (código 200)
+    try {
+      const response = await axios.post(
+        "http://localhost:3002/endereco",
+        endereco
+      );
+
       if (response.status === 200) {
-        setSuccessMessage('Endereço inserido com sucesso');
-        setEndereco(initialState); // Limpar o formulário
+        setMessage("Endereço inserido com sucesso");
+        setEndereco(initialState);
       } else {
-        throw new Error('Erro ao adicionar endereço');
+        throw new Error("Erro ao adicionar endereço");
       }
     } catch (error) {
-      console.error('Erro ao enviar endereço:', error);
-      setError('Ocorreu um erro ao adicionar endereço');
+      console.error("Erro ao enviar endereço:", error);
+      setMessage("Ocorreu um erro ao adicionar endereço");
     }
   };
 
@@ -66,29 +62,50 @@ function Endereco() {
         <form onSubmit={handleSubmit}>
           <div>
             <label htmlFor="rua">Rua:</label>
-            <input type="text" id="rua" name="rua" value={endereco.rua} onChange={handleChange} />
+            <input
+              type="text"
+              id="rua"
+              name="rua"
+              value={endereco.rua}
+              onChange={handleChange}
+            />
           </div>
           <div>
             <label htmlFor="predio">Prédio:</label>
-            <input type="text" id="predio" name="predio" value={endereco.predio} onChange={handleChange} />
+            <input
+              type="text"
+              id="predio"
+              name="predio"
+              value={endereco.predio}
+              onChange={handleChange}
+            />
           </div>
           <div>
             <label htmlFor="andar">Andar:</label>
-            <input type="text" id="andar" name="andar" value={endereco.andar} onChange={handleChange} />
+            <input
+              type="text"
+              id="andar"
+              name="andar"
+              value={endereco.andar}
+              onChange={handleChange}
+            />
           </div>
           <div>
-            <label htmlFor="apartamento">Apartamento:</label>
-            <input type="text" id="apartamento" name="apartamento" value={endereco.apartamento} onChange={handleChange} />
+            <label htmlFor="apartamento">Apt:</label>
+            <input
+              type="text"
+              id="apartamento"
+              name="apartamento"
+              value={endereco.apartamento}
+              onChange={handleChange}
+            />
           </div>
-        
-  
-        </form>
-        
-        <button type="submit" className='btt' onClick={handleError} >
+          {message && <div className="alert">{message}</div>}
+
+          <button type="submit" className="btt">
             Adicionar
           </button>
-          {error && <div className="error">{error}</div>}
-          {successMessage && <div className="success">{successMessage}</div>}
+        </form>
       </div>
     </div>
   );

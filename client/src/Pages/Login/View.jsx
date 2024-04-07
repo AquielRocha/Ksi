@@ -24,7 +24,6 @@ const LoginView = ({
             <h1 className="hlo">LOG IN</h1>
           </div>
 
-          {error && <div className="alert">{error}</div>}
 
           <form onSubmit={handleLogin}>
             <div className="input-box">
@@ -51,8 +50,11 @@ const LoginView = ({
                 LOGAR
               </button>
               <Link to="/register" style={{ textDecoration: "none" }}>
+              {error && <div className="alert">{error}</div>}
+
                 <span className="spaa">NÃO TENHO CONTA</span>
               </Link>
+              
             </div>
           </form>
         </div>

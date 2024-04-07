@@ -64,7 +64,7 @@ const RegisterView = ({
             </div>
             <div className="bax">
             {error && <div className="alert">{error}</div>}
-            {successMessage && <div className="alert">{successMessage}</div>}
+            {successMessage && <div className="alert-s">{successMessage}</div>}
             <button type="submit" className="btn-re">
               Register
             </button>

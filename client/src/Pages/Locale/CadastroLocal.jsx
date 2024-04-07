@@ -50,17 +50,17 @@ const Local = () => {
       </div>
       <div className="quadro">
         <form onSubmit={handleSubmit}>
-         <label htmlFor=""> NOME</label>
+          <label htmlFor=""> NOME:</label>
           <input
             type="text"
-            placeholder="Nome do local"
+            placeholder=""
             value={nomeLocal}
             onChange={(event) => setNomeLocal(event.target.value)} // Atualiza o estado com o valor do campo de entrada
           />
           {/* Exibe a mensagem de erro, se houver */}
-          {error && <div className="error">{error}</div>}
+          {error && <div className="alert">{error}</div>}
           {/* Exibe a mensagem de sucesso, se houver */}
-          {successMessage && <div className="success">{successMessage}</div>}
+          {successMessage && <div className="alert-s">{successMessage}</div>}
           {/* Botão para submeter o formulário */}
           <button type="submit" className="btt">
             Adicionar
