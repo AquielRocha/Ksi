@@ -1,5 +1,6 @@
-import React from 'react';
-import Axios from 'axios';
+import React from "react";
+import Axios from "axios";
+import "./Image.css";
 
 const Images = ({ setImagem }) => {
   const handleImagemChange = async (e) => {
@@ -8,7 +9,8 @@ const Images = ({ setImagem }) => {
   };
 
   return (
-    <div>
+    <div className="iml">
+      <label htmlFor="imagem">Imagem do Produto:</label>
       <input type="file" onChange={handleImagemChange} />
     </div>
   );

@@ -1,0 +1,31 @@
+.iml {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.iml input[type="file"] {
+  background-color: rgb(221, 221, 221);
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.iml input[type="file"]::-webkit-file-upload-button {
+  border: none;
+  background-color: rgb(221, 221, 221);
+  color: rgb(0, 0, 0);
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.iml input[type="file"]::-moz-file-upload-button {
+  background-color: rgb(221, 221, 221);
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}

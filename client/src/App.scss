@@ -365,18 +365,25 @@ $maxImageSize: 700px;
 
 .container-wrapper {
   display: flex;
-  flex-wrap: wrap; /* Permite que os containers sejam distribuídos em várias linhas em telas menores */
-  justify-content: center; /* Centraliza os containers na tela */
-  gap: 25px; /* Define o espaço entre os containers */
-  width: 90%; /* Ajusta a largura para ocupar 90% da largura disponível */
-  max-width: 1000px; /* Define uma largura máxima para os containers */
-  margin: 0 auto; /* Centraliza os containers na tela */
+  flex-wrap: wrap;
+  /* Permite que os containers sejam distribuídos em várias linhas em telas menores */
+  justify-content: center;
+  /* Centraliza os containers na tela */
+  gap: 25px;
+  /* Define o espaço entre os containers */
+  width: 90%;
+  /* Ajusta a largura para ocupar 90% da largura disponível */
+  max-width: 1000px;
+  /* Define uma largura máxima para os containers */
+  margin: 0 auto;
+  /* Centraliza os containers na tela */
 }
 
 .container {
   flex: 1;
   width: 400px;
-  max-width: 100%; /* Garante que o container não exceda a largura máxima */
+  max-width: 100%;
+  /* Garante que o container não exceda a largura máxima */
   margin: 20px;
 }
 
@@ -437,13 +444,16 @@ h4 {
 
 @media only screen and (max-width: 768px) {
   .container {
-    width: 90%; /* Ajusta a largura do container para ocupar 90% da largura disponível */
-    margin: 20px auto; /* Centraliza o container na tela */
+    width: 90%;
+    /* Ajusta a largura do container para ocupar 90% da largura disponível */
+    margin: 20px auto;
+    /* Centraliza o container na tela */
   }
 
   .container .square1-container,
   .square2-container {
-    height: auto; /* Ajusta a altura automaticamente conforme o conteúdo */
+    height: auto;
+    /* Ajusta a altura automaticamente conforme o conteúdo */
   }
 
   .img-product {
@@ -461,6 +471,7 @@ h4 {
     height: auto;
   }
 }
+
 // FIM PAGINA DASHBOARD
 
 //CADASTRO GERAL
@@ -476,6 +487,7 @@ h4 {
     opacity: 0;
     transform: translate3d(0, -50px, 0);
   }
+
   100% {
     opacity: 1;
     transform: translate3d(0, 0, 0);
@@ -499,7 +511,6 @@ h4 {
   justify-content: space-between;
   background-color: $cor-laranja;
   box-shadow: 0.2rem 1.1rem 1.6rem -0.3rem rgba(0, 0, 0, 0.37);
-  
 }
 
 .cadss {
@@ -609,14 +620,15 @@ h4 {
     font-weight: 500;
     text-transform: uppercase;
     font-size: 1.15rem;
-    margin-right: 1rem; /* Espaçamento entre a label e o input */
+    margin-right: 1rem;
+    /* Espaçamento entre a label e o input */
     display: flex;
     align-items: center;
   }
 
   input {
     margin-bottom: 1rem;
-    font-size: 0.9390rem;
+    font-size: 0.939rem;
     height: 4rem;
     background-color: rgb(221, 221, 221);
     width: 100%;
@@ -635,12 +647,14 @@ h4 {
   form {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Alinhar itens à esquerda */
+    align-items: flex-start;
+    /* Alinhar itens à esquerda */
     margin-bottom: 15px;
 
     > div {
       display: flex;
-      flex-direction: column; /* Alterado para coluna */
+      flex-direction: column;
+      /* Alterado para coluna */
       gap: 12px;
     }
 
@@ -650,7 +664,6 @@ h4 {
     }
   }
 }
-
 
 /* Media Queries */
 @media only screen and (min-width: 48rem) {

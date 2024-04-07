@@ -124,7 +124,6 @@ const Produto = () => {
           </div>
 
           <div className="input-container">
-            <label htmlFor="imagem">Imagem do Produto:</label>
             <Images setImagem={setImagem} />
           </div>
           {/* Exibe a mensagem de erro, se houver */}
