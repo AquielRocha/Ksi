@@ -29,10 +29,24 @@ const LoginModels = () => {
     }
   };
 
+  // Função para validar campos antes de enviar o formulário de login
+  const handleCampo = (e) => {
+    e.preventDefault();
+    if (!userName.trim() || !password.trim()) {
+      setError("Por favor, preencha todos os campos.");
+      return;
+    }
+    // Se todos os campos estiverem preenchidos, limpe o erro
+    setError("");
+    // Em seguida, chame a função de login
+    handleLogin(e);
+  };
+
   return {
     userName,
     password,
     error,
+    handleCampo,
     handleLogin,
     setUserName,
     setPassword,

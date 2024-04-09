@@ -52,6 +52,7 @@ app.post("/upload", upload.single("imagem"), (req, res) => {
   res.send({ imagePath: req.file.path });
 });
 
+
 // Inserir novo usuário
 app.post("/usuario", (req, res) => {
   const { nome, email, senha } = req.body;

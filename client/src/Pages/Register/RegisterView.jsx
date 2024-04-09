@@ -7,6 +7,7 @@ import Background from "../../Components/Background/Background";
 import logo from "../../Components/Assets/logo-princ.jpg";
 
 const RegisterView = ({
+  handleCampo,
   handleRegister,
   userName,
   setUserName,
@@ -21,18 +22,11 @@ const RegisterView = ({
 }) => {
   return (
     <div>
-
       <div className="mover">
-      
-        
-
-
         <div className="register-form">
           <div className="reg">
-
-          <img className="lo" src={logo} alt="Logo" />
-          <h1 >Register</h1>
-
+            <img className="lo" src={logo} alt="Logo" />
+            <h1>Register</h1>
           </div>
           <form onSubmit={handleRegister}>
             <div className="input-box">
@@ -63,21 +57,22 @@ const RegisterView = ({
               />
             </div>
             <div className="bax">
-            {error && <div className="alert">{error}</div>}
-            {successMessage && <div className="alert-s">{successMessage}</div>}
-            <button type="submit" className="btn-re">
-              Register
-            </button>
-            <Link to="/login" style={{ textDecoration: "none" }}>
-              <span className="sp">JÁ TENHO UMA CONTA</span>
-            </Link>
+              {error && <div className="alert">{error}</div>}
+              {successMessage && (
+                <div className="alert-s">{successMessage}</div>
+              )}
+              <button type="submit" onClick={handleCampo} className="btn-re">
+                Register
+              </button>
+
+              <Link to="/login" style={{ textDecoration: "none" }}>
+                <span className="sp">JÁ TENHO UMA CONTA</span>
+              </Link>
             </div>
           </form>
         </div>
       </div>
       <Background />
-   
-
     </div>
   );
 };

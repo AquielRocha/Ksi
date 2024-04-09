@@ -1,4 +1,5 @@
 export const RegisterModel = {
+  handleCampo: Function,
   handleRegister: Function,
   userName: String,
   setUserName: Function,

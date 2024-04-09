@@ -9,6 +9,7 @@ const LoginView = ({
   userName,
   password,
   handleLogin,
+  handleCampo,
   setUserName,
   setPassword,
   setError,
@@ -23,7 +24,6 @@ const LoginView = ({
 
             <h1 className="hlo">LOG IN</h1>
           </div>
-
 
           <form onSubmit={handleLogin}>
             <div className="input-box">
@@ -46,15 +46,14 @@ const LoginView = ({
             </div>
 
             <div className="vtar">
-              <button type="submit" className="btn-go">
+              <button type="submit" className="btn-go" onClick={handleCampo}>
                 LOGAR
               </button>
               <Link to="/register" style={{ textDecoration: "none" }}>
-              {error && <div className="alert">{error}</div>}
+                {error && <div className="alert">{error}</div>}
 
                 <span className="spaa">NÃO TENHO CONTA</span>
               </Link>
-              
             </div>
           </form>
         </div>

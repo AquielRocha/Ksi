@@ -1,21 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import Background from "../../Components/Background/Background";
-import { BsSearch } from "react-icons/bs";
 import Header from "../../Components/Header/Headers";
 
 const ConsultaGeral = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterOption, setFilterOption] = useState("endereco"); // Opções: endereco, produto
-  const [results, setResults] = useState([]); // estado para inicializar com array vazio []
-  const [filterOn, setFilterOn] = useState(false); // Inicializar Filtro
-  const [dataFiltered, setDataFiltered] = useState([]); // results Filtrado
-
-//const [showConsult, setShowConsut] = useState(true); // Novo estado para controlar a exibição dos card/
-//const [showConsultProduto, setShowConsultProduto] = useState(false);
-  // [showConsultEndereco, setShowConsultEndereco] = useState(false);
-
+  const [filterOption, setFilterOption] = useState("endereco");
+  const [results, setResults] = useState([]);
+  const [filterOn, setFilterOn] = useState(false);
+  const [dataFiltered, setDataFiltered] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,34 +32,105 @@ const ConsultaGeral = () => {
     fetchData();
   }, [searchTerm, filterOption]);
 
-  // Função para renderizar os resultados
   const renderResults = () => {
     return (
       <div className="results-container">
         <p>Resultados aqui</p>
         <ul className="results-list">
-          {dataFiltered !== undefined && filterOn == true
+          {dataFiltered !== undefined && filterOn === true
             ? dataFiltered.map((result) => (
                 <li key={result.id}>
                   <div className="result-item">
-                    {Object.entries(result).map(([key, value]) => (
-                      <span key={key} className="result-field">
-                        <strong>{key}: </strong>
-                        {value}
-                      </span>
-                    ))}
+                    {filterOption === "endereco" ? (
+                      <>
+                        <span className="result-field">
+                          <strong>Rua: </strong>
+                          {result.rua}
+                        </span>
+                        <span className="result-field">
+                          <strong>Prédio: </strong>
+                          {result.predio}
+                        </span>
+                        <span className="result-field">
+                          <strong>Andar: </strong>
+                          {result.andar}
+                        </span>
+                        <span className="result-field">
+                          <strong>Apartamento: </strong>
+                          {result.apartamento}
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="result-field">
+                          <strong>Imagem: </strong>
+                          <img
+                            src={`http://localhost:3002/uploads/${result.imagem}`}
+                            alt={result.nome}
+                          />
+                        </span>
+                        <span className="result-field">
+                          <strong>Nome: </strong>
+                          {result.nome}
+                        </span>
+                        <span className="result-field">
+                          <strong>Descrição: </strong>
+                          {result.descricao}
+                        </span>
+                        <span className="result-field">
+                          <strong>Local: </strong>
+                          {result.local}
+                        </span>
+                      </>
+                    )}
                   </div>
                 </li>
               ))
             : results.map((result) => (
                 <li key={result.id}>
                   <div className="result-item">
-                    {Object.entries(result).map(([key, value]) => (
-                      <span key={key} className="result-field">
-                        <strong>{key}: </strong>
-                        {value}
-                      </span>
-                    ))}
+                    {filterOption === "endereco" ? (
+                      <>
+                        <span className="result-field">
+                          <strong>Rua: </strong>
+                          {result.rua}
+                        </span>
+                        <span className="result-field">
+                          <strong>Prédio: </strong>
+                          {result.predio}
+                        </span>
+                        <span className="result-field">
+                          <strong>Andar: </strong>
+                          {result.andar}
+                        </span>
+                        <span className="result-field">
+                          <strong>Apartamento: </strong>
+                          {result.apartamento}
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="result-field">
+                          <strong>Imagem: </strong>
+                          <img
+                            src={`http://localhost:3002/uploads/${result.imagem}`}
+                            alt={result.nome}
+                          />
+                        </span>
+                        <span className="result-field">
+                          <strong>Nome: </strong>
+                          {result.nome}
+                        </span>
+                        <span className="result-field">
+                          <strong>Descrição: </strong>
+                          {result.descricao}
+                        </span>
+                        <span className="result-field">
+                          <strong>Local: </strong>
+                          {result.local_id}
+                        </span>
+                      </>
+                    )}
                   </div>
                 </li>
               ))}
@@ -75,32 +139,23 @@ const ConsultaGeral = () => {
     );
   };
 
-  // Lógica para lidar com a submissão do formulário de pesquisa]
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(filterOption);
     setFilterOn(true);
-    console.log(results);
-    if (filterOption == "produto") {
-      console.log(filterOption);
-      setDataFiltered(
-        results.filter(({ nome }) => {
-          return nome.toLowerCase() == searchTerm.toLowerCase();
-        })
+    let filteredData;
+    if (filterOption === "produto") {
+      filteredData = results.filter(
+        ({ nome }) => nome.toLowerCase() === searchTerm.toLowerCase()
+      );
+    } else if (filterOption === "endereco") {
+      filteredData = results.filter(
+        ({ predio }) => predio.toLowerCase() === searchTerm.toLowerCase()
       );
     }
-    if (filterOption == "endereco") {
-      console.log(filterOption);
-      setDataFiltered(
-        results.filter(({ predio }) => {
-          return predio.toLowerCase() == searchTerm.toLowerCase();
-        })
-      );
-    }
-    console.log(dataFiltered);
+    setDataFiltered(filteredData);
   };
 
-  const OptionFilter = (e) => {
+  const handleFilterOptionChange = (e) => {
     e.preventDefault();
     setFilterOption(e.target.value);
     setFilterOn(false);
@@ -110,7 +165,6 @@ const ConsultaGeral = () => {
     <div>
       <Header />
       <div className="search-container">
-        <BsSearch />
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -131,7 +185,7 @@ const ConsultaGeral = () => {
                 type="radio"
                 value="endereco"
                 checked={filterOption === "endereco"}
-                onChange={(e) => OptionFilter(e)}
+                onChange={handleFilterOptionChange}
               />
             </label>
             <label>
@@ -140,30 +194,16 @@ const ConsultaGeral = () => {
                 type="radio"
                 value="produto"
                 checked={filterOption === "produto"}
-                onChange={(e) => OptionFilter(e)}
+                onChange={handleFilterOptionChange}
               />
             </label>
           </div>
         </div>
       </div>
+
       {renderResults()}
-
-    {/*  <button
-            className="btn-log"
-            onClick={() => {
-              fecharAbasCadastro();
-              setShowConsultProduto(true);
-              setShowConsult(false);
-
-              <Link to="/card">Visualizar</Link> {/* Link para a página de detalhes */}
-
-            }}
-
       <Background />
-          </div>
-
-
-          
+    </div>
   );
 };
 
