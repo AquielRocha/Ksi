@@ -20,11 +20,12 @@ body {
   align-items: center;
   min-height: 100vh;
   background-color: #f0f0f0;
-  overflow: hidden; // Impede a rolagem da página
 }
 
 // PÁGINA HOME
 .container-s {
+  overflow: hidden; // Impede a rolagem da página
+
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -497,7 +498,7 @@ h4 {
 .cima {
   position: fixed;
   top: 0;
-  left: 0;
+  left: 5rem;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -678,82 +679,109 @@ h4 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 1.6rem;
+
+  
 }
 
-// .container-first {
-  
-// }
 
 .filtro-container {
   display: flex;
   flex-direction: row;
-  margin-top: 0.85rem;
-  width: 100%; // Mudança para largura total
+  margin-top: 0.95rem;
+  justify-content: space-between;
   gap: 10px;
+
+  .icon{
+     font-size: 1.5rem;
+     color: black;
+     cursor: pointer;
+     transition: ease 0.5s;
+
+ 
+  }
 }
 
 .heads {
-
-  flex-direction: row;
-  
-  background-color: $cor-laranja; 
+  background-color: $cor-laranja;
   box-shadow: 0.2rem 1.1rem 1.6rem -0.3rem rgba(0, 0, 0, 0.37);
-  padding: 13px;
-  border-radius: 10px;
+  padding: 20px;
+  border-radius: 4px;
   color: white;
+  width: 70rem; // Definindo a largura total
+  max-width: 800rem; // Definindo uma largura máxima para o componente
+
+  h2 {
+    margin-top: 6px;
+    white-space: nowrap;
+    font-size: 20px;
+    display: flex;
+  }
 
   input[type="radio"] {
     appearance: none;
-    width: 20px; // Definido como automático para não ocupar toda a largura
+    width: 20px;
     height: 20px;
     border-radius: 50%;
-    border: 2px solid white;
+    border: 3px solid white;
     cursor: pointer;
-    margin-right: 5px; // Adiciona espaçamento entre os inputs e as labels
+
+    margin-right: 5px;
     &:checked {
-      background-color: white;
+      background-color: rgb(255, 49, 49);
     }
 
     &:focus {
       outline: none;
-      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5); // Example focus style
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
     }
   }
 
   input[type="text"] {
+    margin-left: 10rem;
     height: 20px;
-    width: 100%; // Mudança para largura total
-    padding: 25px; // Redução do preenchimento
+    width: calc(100% - 150px); // Reduzindo a largura para acomodar o botão
+    padding: 25px;
     border: none;
-    border-radius: 15px;
     background-color: rgb(255, 255, 255);
     font-family: "Space Grotesk", sans-serif;
     color: rgb(0, 0, 0);
+    border: none;
+    font-size: 15px;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    font-weight: 500;
+
+    &:focus {
+      outline: none;
+    }
   }
 
   button {
-    border-radius: 20px;
+    width: 100px; // Definindo a largura do botão
     cursor: pointer;
-    padding: 10px; // Redução do preenchimento
+    padding: 10px;
+    background-color: white;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
   }
-
 
   label {
-    display: flex; // Alteração para flex
-    align-items: center; // Centraliza os itens verticalmente
+    display: flex;
+    align-items: center;
     font-family: "Space Grotesk", sans-serif;
     font-size: 20px;
-    flex-direction: row; // Alteração para linha
     font-weight: 500;
-    
+    flex-direction: row-reverse; // Posiciona o radio do outro lado
+
   }
 }
+
 
 .consultas {
   margin-top: 20px;
   width: 100%;
   max-width: 101.5rem;
-  height: 40rem;
   border-radius: 1rem;
   box-shadow: 0.2rem 1.1rem 1.6rem -0.3rem rgba(0, 0, 0, 0.6);
   display: flex;
@@ -770,5 +798,25 @@ h4 {
   display: flex;
   flex-direction: row;
   color: white;
+}
+
+.base {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.result-item {
+  gap: 5rem;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 1rem;
+}
+
+.result-field {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 

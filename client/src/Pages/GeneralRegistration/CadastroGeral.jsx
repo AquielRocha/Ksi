@@ -5,6 +5,7 @@ import CadastroLocal from "../Locale/CadastroLocal";
 import Header from "../../Components/Header/Headers";
 import Background from "../../Components/Background/Background";
 import { useSpring, animated } from "react-spring";
+import Voltar from "../../Components/Return/Voltar";
 
 const CadastroGeral = () => {
   // Estado para armazenar o botão selecionado
@@ -18,9 +19,13 @@ const CadastroGeral = () => {
   return (
     <>
       <div className="cima">
+
         <Header />
       </div>
-
+      <div className="sla">
+<Voltar/>
+      </div>
+  
       <Background />
       <div className="cadastro">
         {/* Renderização dos botões */}

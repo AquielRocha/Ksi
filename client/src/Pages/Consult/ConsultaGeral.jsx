@@ -5,6 +5,9 @@ import Imgg from "../../Components/Imgg/Image";
 import Background from "../../Components/Background/Background";
 import { VscSearch } from "react-icons/vsc";
 import ReactLoading from "react-loading";
+import { Link } from "react-router-dom";
+import { IoIosReturnLeft } from "react-icons/io";
+import Voltar from "../../Components/Return/Voltar";
 
 const ConsultaGeral = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -64,53 +67,69 @@ const ConsultaGeral = () => {
     setFilterOn(false);
   };
 
-  const Results = () => {
-    return (
-      <div className="results-container">
-        {loading && <ReactLoading type={"spin"} color={"#000"} />} {/* Spinner de carregamento */}
-        {!loading && (
-          <>
-            <p>Resultados aqui</p>
-            <div className="results-list">
-              {dataFiltered !== undefined && filterOn === true
-                ? dataFiltered.map((result) => (
-                    <li key={result.id}>
-                      <div className="result-item">
-                        {filterOption === "produto" && (
-                          <Imgg imagePath={result.imagem} size="30px" />
-                        )}
-                        {Object.entries(result).map(([key, value]) => (
-                          <span key={key} className="result-field">
-                            <strong>{key}: </strong>
-                            {value}
-                          </span>
-                        ))}
-                      </div>
-                    </li>
-                  ))
-                : results.map((result) => (
-                    <li key={result.id}>
-                      <div className="result-item">
-                        {filterOption === "produto" && (
-                          <div className="sim">
-                            <Imgg imagePath={result.imagem} size="30px" />
-                          </div>
-                        )}
-                        {Object.entries(result).map(([key, value]) => (
-                          <span key={key} className="result-field">
-                            <strong>{key}: </strong>
-                            {value}
-                          </span>
-                        ))}
-                      </div>
-                    </li>
-                  ))}
-            </div>
-          </>
-        )}
-      </div>
-    );
-  };
+const Results = () => {
+  return (
+    <div className="results-container">
+      {loading && <ReactLoading type={"spin"} color={"#000"} />}{" "}
+      {/* Spinner de carregamento */}
+      {!loading && (
+        <>
+          {dataFiltered.length === 0 && filterOn && (
+            <p>Nenhum resultado foi encontrado.</p>
+          )}
+          <div className="results-list">
+            {dataFiltered !== undefined && filterOn === true ? (
+              <div>
+                <h2>Resultados de Endereços:</h2> {/* Subtítulo para endereços */}
+                {dataFiltered.map((result) => (
+                  <div unic className="unico" key={result.id}>
+                    <div className="result-item">
+                      {filterOption === "produto" && (
+                        <Imgg imagePath={result.imagem} size="30px" />
+                      )}
+                      {Object.entries(result).map(([key, value]) => {
+                        if (key !== "imagem") {
+                          return (
+                            <span key={key} className="result-field">
+                              {value}
+                            </span>
+                          );
+                        }
+                        return null;
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div>
+                <h2>Resultados de Produtos:</h2> {/* Subtítulo para produtos */}
+                {results.map((result) => (
+                  <div unic className="unico" key={result.id}>
+                    <div className="result-item">
+                      {filterOption === "produto" && (
+                        <Imgg imagePath={result.imagem} size="30px" />
+                      )}
+                      {Object.entries(result).map(
+                        ([key, value]) =>
+                          key !== "imagem" && (
+                            <span key={key} className="result-field">
+                              {value}
+                            </span>
+                          )
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
+
 
   return (
     <div>
@@ -118,13 +137,13 @@ const ConsultaGeral = () => {
         <Header />
       </div>
 
+      <Voltar />
       <Background />
       <div className="conteiner-first">
         <form className="heads" onSubmit={handleSubmit}>
           <div className="filtro-container">
-            <h2>FILTRAR POR</h2>
-
             <div className="opcoes">
+              <h2>FILTRAR POR:</h2>
               <label>
                 ENDEREÇO
                 <input
@@ -152,14 +171,18 @@ const ConsultaGeral = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             <button type="submit">
-              <div className="icon">
-                <VscSearch />
-              </div>
+              <VscSearch className="icon" />
             </button>
           </div>
         </form>
       </div>
-      <div className="consultas">{Results()}</div>
+      <div className="consultas">
+        
+        <div className="consulta-container">
+          
+        </div>
+        {Results()}
+      </div>
     </div>
   );
 };
