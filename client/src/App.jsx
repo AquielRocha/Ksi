@@ -11,7 +11,7 @@ import CadastroLocal from "./Pages/Locale/CadastroLocal";
 import ConsultaGeral from "./Pages/Consult/ConsultaGeral";
 import ConsultaEndereco from "./Pages/Adress/ConsultaEndereco";
 import CadastroGeral from "./Pages/GeneralRegistration/CadastroGeral";
-
+import Teste from "./Pages/teste/teste";
 
 function App() {
   return (
@@ -27,6 +27,8 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/consultaG" element={<ConsultaGeral />} />
         <Route path="/consultaE" element={<ConsultaEndereco />} />
+        <Route path="/teste" element={<Teste />} />
+
 
 
       </Routes>

@@ -3,6 +3,7 @@ const app = express();
 const mysql = require("mysql");
 const cors = require("cors");
 const multer = require("multer");
+const path = require("path");
 
 // Configuração do Express
 app.use(express.json());
@@ -32,15 +33,15 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     // Adicionando timestamp ao nome do arquivo para torná-lo único
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, uniqueSuffix + "-" + file.originalname);
+    const uniqueSuffix = Date.now() + "_" + Math.round(Math.random() * 1e9);
+    cb(null, uniqueSuffix + "_" + file.originalname);
   },
 });
 
 const upload = multer({ storage: storage });
 
 // Rota para lidar com o upload de imagens
-app.post("/upload", upload.single("imagem"), (req, res) => {
+app.post("/uploads", upload.single("imagem"), (req, res) => {
   // Verifica se o arquivo foi enviado corretamente
   if (!req.file) {
     return res.status(400).send("Nenhum arquivo enviado.");
@@ -50,6 +51,17 @@ app.post("/upload", upload.single("imagem"), (req, res) => {
 
   // Retorna o caminho do arquivo enviado
   res.send({ imagePath: req.file.path });
+});
+
+
+
+// Rota para servir as imagens
+app.get('/uploads/:imageName', (req, res) => {
+  const imageName = req.params.imageName;
+  const imagePath = path.join(__dirname, '/uploads', imageName); // Caminho completo para a imagem
+
+  // Envie a imagem como resposta
+  res.sendFile(imagePath);
 });
 
 
@@ -154,7 +166,7 @@ app.post("/endereco", (req, res) => {
 
 // Consultar todos os endereços
 app.get("/endereco", (req, res) => {
-  const SQL = "SELECT * FROM endereco";
+  const SQL = "SELECT rua,predio,andar,apartamento FROM endereco";
   db.query(SQL, (err, result) => {
     if (err) {
       console.error("Erro ao consultar endereços:", err);
@@ -281,7 +293,7 @@ app.post("/produto", upload.single("imagem"), (req, res) => {
 
 // Consultar todos os produtos
 app.get("/produto", (req, res) => {
-  const SQL = "SELECT * FROM produto";
+  const SQL = "SELECT imagem,nome,descricao,local_id  FROM produto";
   db.query(SQL, (err, result) => {
     if (err) {
       console.error("Erro ao consultar produtos:", err);
@@ -329,6 +341,5 @@ const PORT = process.env.PORT || 3002;
 app.listen(PORT, () => {
   console.log(`Servidor está funcionando na porta ${PORT}`);
 });
-
 
 
