@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { IoIosReturnLeft } from "react-icons/io";
 import Voltar from "../../Components/Return/Voltar";
 
-const ConsultaGeral = () => {
+fffffffffffffffffffffffffffffffffffffffffconst ConsultaGeral = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterOption, setFilterOption] = useState("endereco");
   const [results, setResults] = useState([]);
@@ -116,7 +116,7 @@ const Results = () => {
                             <span key={key} className="result-field">
                               {value}
                             </span>
-                          )
+                          )ff
                       )}
                     </div>
                   </div>
