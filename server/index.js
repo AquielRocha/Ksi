@@ -53,17 +53,14 @@ app.post("/uploads", upload.single("imagem"), (req, res) => {
   res.send({ imagePath: req.file.path });
 });
 
-
-
 // Rota para servir as imagens
-app.get('/uploads/:imageName', (req, res) => {
+app.get("/uploads/:imageName", (req, res) => {
   const imageName = req.params.imageName;
-  const imagePath = path.join(__dirname, '/uploads', imageName); // Caminho completo para a imagem
+  const imagePath = path.join(__dirname, "/uploads", imageName); // Caminho completo para a imagem
 
   // Envie a imagem como resposta
   res.sendFile(imagePath);
 });
-
 
 // Inserir novo usuário
 app.post("/usuario", (req, res) => {
@@ -272,24 +269,26 @@ app.delete("/local/:id", (req, res) => {
   });
 });
 
-
-//novo prodiuto 
+//novo prodiuto
 app.post("/produto", upload.single("imagem"), (req, res) => {
   const { nome, descricao, codigo_barras, local_id } = req.body;
   const nomeImagem = req.file.filename; // Nome do arquivo enviado pelo multer
   const SQL =
     "INSERT INTO produto (nome, descricao, codigo_barras, local_id, imagem) VALUES (?, ?, ?, ?, ?)";
-  db.query(SQL, [nome, descricao, codigo_barras, local_id, nomeImagem], (err, result) => {
-    if (err) {
-      console.error("Erro ao inserir produto:", err);
-      res.status(500).send({ error: "Erro interno do servidor" });
-    } else {
-      console.log("Novo produto inserido com sucesso");
-      res.send({ message: "Novo produto inserido com sucesso" });
+  db.query(
+    SQL,
+    [nome, descricao, codigo_barras, local_id, nomeImagem],
+    (err, result) => {
+      if (err) {
+        console.error("Erro ao inserir produto:", err);
+        res.status(500).send({ error: "Erro interno do servidor" });
+      } else {
+        console.log("Novo produto inserido com sucesso");
+        res.send({ message: "Novo produto inserido com sucesso" });
+      }
     }
-  });
+  );
 });
-
 
 // Consultar todos os produtos
 app.get("/produto", (req, res) => {
@@ -341,5 +340,3 @@ const PORT = process.env.PORT || 3002;
 app.listen(PORT, () => {
   console.log(`Servidor está funcionando na porta ${PORT}`);
 });
-
-
