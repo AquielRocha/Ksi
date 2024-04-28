@@ -32,6 +32,46 @@ const ConsultaGeral = () => {
     setModalOpen(false);
   };
 
+  function getItemDetails() {
+    if (selectedItem && "nome" in selectedItem) {
+      // Selected item is a product
+      return (
+        <>
+          <h2>Detalhes do Produto</h2>
+          <Imgg imagePath={result.imagem} size="30px" />
+
+          {Object.entries(result).map(([key, value]) => {
+            if (key !== "imagem") {
+              return (
+                <span key={key} className="result-field">
+                  {value}
+                </span>
+              );
+            }
+            return null;
+          })}
+          <p>Nome: {selectedItem.nome}</p>
+          <p>Descrição: {selectedItem.descricao}</p>
+          <p>Local: {selectedItem.local_id}</p>
+          {/* Add more product details as necessary */}
+        </>
+      );
+    } else if (selectedItem && "predio" in selectedItem) {
+      // Selected item is an address
+      return (
+        <>
+          <h2>Detalhes do Endereço</h2>
+          <p>
+            Endereço: {selectedItem.predio}, {selectedItem.rua},{" "}
+            {selectedItem.numero}
+          </p>
+        </>
+      );
+    } else {
+      return <p>Selecione um produto ou endereço válido.</p>;
+    }
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -85,10 +125,8 @@ const ConsultaGeral = () => {
     if (modalOpen && selectedItem) {
       return (
         <Modal onClose={handleCloseModal}>
-          {/* Conteúdo do modal, exibindo os detalhes do item selecionado */}
           <h2>Detalhes do Item</h2>
           <p>Nome: {selectedItem.nome}</p>
-          {/* Adicione mais detalhes conforme necessário */}
         </Modal>
       );
     }
@@ -214,16 +252,12 @@ const ConsultaGeral = () => {
         {Results()}
       </div>
       {/* Renderize o modal */}
-      <Modal open={modalOpen} onClose={handleCloseModal}>
-        {selectedItem && (
-          <>
-            <h2>Detalhes do Item</h2>
-            <p>ID: {selectedItem.id}</p>
-            <p>Nome: {selectedItem.nome}</p>
-            {/* Adicione mais detalhes conforme necessário */}
-          </>
-        )}
-      </Modal>
+      <Modal
+        open={modalOpen}
+        onClose={handleCloseModal}
+        getItemDetails={getItemDetails}
+      />
+      {modalOpen && getItemDetails()}
     </div>
   );
 };
