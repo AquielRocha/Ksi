@@ -24,9 +24,11 @@ CREATE TABLE `endereco` (
   `andar` varchar(50) DEFAULT NULL,
   `apartamento` varchar(50) DEFAULT NULL,
   `usuario_id` int(11) DEFAULT NULL,
+  `local_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `usuario_id` (`usuario_id`),
   CONSTRAINT `endereco_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`)
+  CONSTRAINT `endereco_ibfk_2` FOREIGN KEY (`local_id`) REFERENCES local (`id`);
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `produto` (

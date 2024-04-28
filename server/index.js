@@ -143,12 +143,12 @@ app.post("/login", (req, res) => {
 
 // Adicionar novo endereço
 app.post("/endereco", (req, res) => {
-  const { rua, predio, andar, apartamento, usuario_id } = req.body;
+  const { rua, predio, andar, apartamento, usuario_id, local_id } = req.body;
   const SQL =
-    "INSERT INTO endereco (rua, predio, andar, apartamento, usuario_id) VALUES (?, ?, ?, ?, ?)";
+    "INSERT INTO endereco (rua, predio, andar, apartamento, usuario_id, local_id) VALUES (?, ?, ?, ?, ?, ?)";
   db.query(
     SQL,
-    [rua, predio, andar, apartamento, usuario_id],
+    [rua, predio, andar, apartamento, usuario_id, local_id],
     (err, result) => {
       if (err) {
         console.error("Erro ao inserir endereço:", err);
@@ -163,7 +163,7 @@ app.post("/endereco", (req, res) => {
 
 // Consultar todos os endereços
 app.get("/endereco", (req, res) => {
-  const SQL = "SELECT rua,predio,andar,apartamento FROM endereco";
+  const SQL = "SELECT rua,predio,andar,apartamento,local_id FROM endereco";
   db.query(SQL, (err, result) => {
     if (err) {
       console.error("Erro ao consultar endereços:", err);

@@ -677,6 +677,16 @@ h4 {
   }
 }
 
+select#local {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.3rem;
+  background-color: rgb(221, 221, 221);
+  appearance: none;
+}
+
 /* Media Queries */
 @media only screen and (min-width: 48rem) {
   .quadro {

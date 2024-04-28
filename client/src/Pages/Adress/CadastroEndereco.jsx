@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios"; // Importe o Axios
 
 function Endereco() {
@@ -7,10 +7,22 @@ function Endereco() {
     predio: "",
     andar: "",
     apartamento: "",
+    local_id: "", // Atualize para local_id
   };
 
   const [endereco, setEndereco] = useState(initialState);
-  const [message, setMessage] = useState(""); // Armazena a mensagem de sucesso ou erro
+  const [message, setMessage] = useState("");
+  const [locais, setLocais] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:3002/local")
+      .then((response) => {
+        setLocais(response.data);
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar os locais:", error);
+      });
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,12 +35,12 @@ function Endereco() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Verifica se todos os campos estão preenchidos
     if (
       !endereco.rua.trim() ||
       !endereco.predio.trim() ||
       !endereco.andar.trim() ||
-      !endereco.apartamento.trim()
+      !endereco.apartamento.trim() ||
+      !endereco.local_id.trim() // Altere para local_id
     ) {
       setMessage("Por favor, preencha todos os campos.");
       return;
@@ -99,6 +111,25 @@ function Endereco() {
               value={endereco.apartamento}
               onChange={handleChange}
             />
+          </div>
+          {/* Adicionando o campo de seleção de local */}
+          <div className="select-container">
+            <label htmlFor="local">Local:</label>
+            <select
+              id="local"
+              name="local_id" // Altere para local_id
+              value={endereco.local_id} // Altere para endereco.local_id
+              onChange={handleChange} // Mantenha o handleChange existente
+            >
+              <option className="option-default" key="default" value="">
+                  Selecione o local
+                </option>
+              {locais.map((local) => (
+                <option key={local.id} value={local.id}>
+                  {local.nome}
+                </option>
+              ))}
+            </select>
           </div>
           {message && <div className="alert">{message}</div>}
 
