@@ -857,20 +857,59 @@ select#local {
   display: block; /* Exibe o modal quando o estado 'open' for verdadeiro */
 }
 
+// Definição de variáveis
+$modal-background-color: #fefefe;
+$modal-border-color: #888;
+$modal-border-radius: 10px;
+$modal-width: 80%;
+$modal-max-width: 600px;
+
+// Estilo do modal
 .modal-content {
   align-items: center;
   justify-content: center;
-  background-color: #fefefe; /* Cor de fundo do modal */
+  background-color: $modal-background-color;
   margin: 20% auto;
   height: 50%;
-
   padding: 20px;
-  border: 1px solid #888;
-  border-radius: 10px;
-  width: 80%;
-  max-width: 600px;
+  border: 1px solid $modal-border-color;
+  border-radius: $modal-border-radius;
+  width: $modal-width;
+  max-width: $modal-max-width;
   position: relative;
+
+  // Estilo dos itens dentro do modal
+  .itemsmodal {
+    text-align: center; // Centraliza o conteúdo
+    
+
+    span {
+      font-weight: bold; // Deixa o texto em negrito
+    }
+
+    p {
+      margin-top: 10px; // Adiciona um espaço entre o span e o parágrafo
+    }
+
+    margin-bottom: 20px; // Adiciona um espaço entre o conteúdo e o modal
+
+
+    input{
+      font-size: 16px;
+      height: 2rem;
+      background-color: rgb(221, 221, 221);
+      width: 10rem; // Alterado para ocupar toda a largura do contêiner
+      border-radius: 5px;
+      border: none;
+      padding: 9px 20px 8px 20px; // Ajustado o padding esquerdo para deixar espaço para o ícone
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 500;
+      color: rgb(0, 0, 0);
+
+    }
+  }
 }
+
 
 .close {
   color: #aaa;
@@ -884,5 +923,23 @@ select#local {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+.btn-ex {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 500;
+  padding: 15px;
+  width: 12rem;
+  height: 3.5rem;
+  color: white;
+  background-color: #ff0000;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 1rem;
+}
+.btn-ex:hover {
+  background-color: #fff;
+  color: #ff0000;
+  border: 1px solid #ff0000;
+  transition: ease 0.5s;
 }
 

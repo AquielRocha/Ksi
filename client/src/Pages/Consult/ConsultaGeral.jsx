@@ -20,6 +20,16 @@ const ConsultaGeral = () => {
   const [selectedItem, setSelectedItem] = useState(null); // Estado para controlar o item selecionado
   const [modalOpen, setModalOpen] = useState(false); // Estado para controlar a abertura do modal
 
+  // Estados para armazenar os novos valores dos campos editáveis
+  const [novoNome, setNovoNome] = useState("");
+  const [novoCodigoBarras, setNovoCodigoBarras] = useState("");
+  const [novaDescricao, setNovaDescricao] = useState("");
+  // const [novoLocalId, setNovoLocalId] = useState("");
+  //const [novaImagem, setNovaImagem] = useState("");
+
+  // Estado para controlar a exibição da seção de edição
+  const [editing, setEditing] = useState(false);
+
   // Manipulador de evento para abrir o modal e definir o item selecionado
   const handleOpenModal = (item) => {
     setSelectedItem(item);
@@ -32,44 +42,147 @@ const ConsultaGeral = () => {
     setModalOpen(false);
   };
 
-  function getItemDetails() {
-    if (selectedItem && "nome" in selectedItem) {
-      // Selected item is a product
-      return (
-        <>
-          <h2>Detalhes do Produto</h2>
-          <Imgg imagePath={result.imagem} size="30px" />
+  const editarproduto = async () => {
+    setEditing(true); // Define o modo de edição como verdadeiro
+  };
 
-          {Object.entries(result).map(([key, value]) => {
-            if (key !== "imagem") {
-              return (
-                <span key={key} className="result-field">
-                  {value}
-                </span>
-              );
-            }
-            return null;
-          })}
-          <p>Nome: {selectedItem.nome}</p>
-          <p>Descrição: {selectedItem.descricao}</p>
-          <p>Local: {selectedItem.local_id}</p>
-          {/* Add more product details as necessary */}
-        </>
+  // Função para salvar a edição do produto
+  const salvarEdicao = async () => {
+    try {
+      console.log("Valores antes da edição:");
+      console.log("Novo Nome:", novoNome);
+      console.log("Novo Código de Barras:", novoCodigoBarras);
+      console.log("Nova Descrição:", novaDescricao);
+
+      const response = await axios.put(
+        `http://localhost:3002/produto/${selectedItem.id}`,
+        {
+          nome: novoNome,
+          codigo_barras: novoCodigoBarras,
+          descricao: novaDescricao,
+          // local_id: novoLocalId,
+          //   imagem: novaImagem,
+        }
       );
-    } else if (selectedItem && "predio" in selectedItem) {
-      // Selected item is an address
-      return (
-        <>
-          <h2>Detalhes do Endereço</h2>
-          <p>
-            Endereço: {selectedItem.predio}, {selectedItem.rua},{" "}
-            {selectedItem.numero}
-          </p>
-        </>
-      );
-    } else {
-      return <p>Selecione um produto ou endereço válido.</p>;
+      if (response.status === 200) {
+        console.log("Produto editado com sucesso.");
+        setEditing(false);
+      } else {
+        console.error("Erro ao editar produto:", response.data.error);
+      }
+    } catch (error) {
+      console.error("Erro ao editar produto:", error);
     }
+  };
+
+  const excluirproduto = () => {
+    console.log("aqui vc exclui as coisas ");
+  };
+
+  const editarendereco = () => {
+    `http://localhost:3002/endereco?=$`;
+  };
+
+  const excluirendereco = () => {
+    console.log("aqui vc exclui as coisas ");
+  };
+
+  function getItemDetails() {
+    return (
+      <>
+        <div className="itemsmodal">
+          {selectedItem && "nome" in selectedItem && (
+            <>
+              <h2>Detalhes do Produto</h2>
+              {/* Renderize os campos de edição se o modo de edição estiver ativado */}
+              {editing ? (
+                <div>
+                  <div>
+                    <span>Nome:</span>{" "}
+                    <input
+                      type="text"
+                      value={novoNome}
+                      onChange={(e) => setNovoNome(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <span>Código de Barras:</span>{" "}
+                    <input
+                      type="number"
+                      value={novoCodigoBarras}
+                      onChange={(e) => setNovoCodigoBarras(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <span>Descrição:</span>{" "}
+                    <input
+                      type="text"
+                      value={novaDescricao}
+                      onChange={(e) => setNovaDescricao(e.target.value)}
+                    />
+                  </div>
+                  {/* <div>
+                    <span>Local ID:</span>{" "}
+                    <input
+                      type="text"
+                      value={novoLocalId}
+                      onChange={(e) => setNovoLocalId(e.target.value)}
+                    />
+                  </div> */}
+                  {/* <div>
+                    <span>Imagem:</span>{" "}
+                    <input
+                      type="text"
+                      value={novaImagem}
+                      onChange={(e) => setNovaImagem(e.target.value)}
+                    />
+                  </div> */}
+                  <button className="btn" onClick={salvarEdicao}>
+                    Salvar
+                  </button>
+                  <button className="btn" onClick={() => setEditing(false)}>
+                    Cancelar
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <Imgg imagePath={selectedItem.imagem} size="100px" />
+                  <p>Nome: {selectedItem.nome}</p>
+                  <p>Descrição: {selectedItem.descricao}</p>
+                  <p>CodBarras: {selectedItem.codigo_barras}</p>
+                  <p>Local: {selectedItem.local_id}</p>
+                  <button className="btn" onClick={editarproduto}>
+                    Editar
+                  </button>
+                  <button className="btn-ex" onClick={excluirproduto}>
+                    Excluir
+                  </button>
+                </>
+              )}
+            </>
+          )}
+          {selectedItem && "predio" in selectedItem && (
+            // Renderizar detalhes do endereço se o selectedItem for um endereço
+            <>
+              <span>Endereço COMPLETO:</span>
+              <p>
+                NOME: {selectedItem.predio}, <br />
+                RUA: {selectedItem.rua}, <br />
+                ANDAR: {selectedItem.andar}, <br />
+                APARTAMENTO: {selectedItem.apartamento}, <br />
+                LOCAL: {selectedItem.local_id}
+              </p>
+              {/* <button onClick={editar}>editar</button>
+              <button onClick={excluir}>excluir</button> */}
+            </>
+          )}
+          {!selectedItem && (
+            // Renderizar mensagem se nenhum item estiver selecionado
+            <p>Selecione um produto ou endereço válido.</p>
+          )}
+        </div>
+      </>
+    );
   }
 
   useEffect(() => {
@@ -121,22 +234,11 @@ const ConsultaGeral = () => {
     setFilterOption(e.target.value);
     setFilterOn(false);
   };
-  const renderModal = () => {
-    if (modalOpen && selectedItem) {
-      return (
-        <Modal onClose={handleCloseModal}>
-          <h2>Detalhes do Item</h2>
-          <p>Nome: {selectedItem.nome}</p>
-        </Modal>
-      );
-    }
-    return null;
-  };
+
   const Results = () => {
     return (
       <div className="results-container">
         {loading && <ReactLoading type={"spin"} color={"#000"} />}{" "}
-        {/* Spinner de carregamento */}
         {!loading && (
           <>
             {dataFiltered.length === 0 && filterOn && (
@@ -146,7 +248,6 @@ const ConsultaGeral = () => {
               {dataFiltered !== undefined && filterOn === true ? (
                 <div>
                   <h2>Resultados de Endereços:</h2>{" "}
-                  {/* Subtítulo para endereços */}
                   {dataFiltered.map((result) => (
                     <div unic className="unico" key={result.id}>
                       <div className="result-item">
@@ -161,7 +262,6 @@ const ConsultaGeral = () => {
                               </span>
                             );
                           }
-                          return null;
                         })}
                         <button onClick={() => handleOpenModal(result)}>
                           Visualizar
@@ -188,7 +288,7 @@ const ConsultaGeral = () => {
                             )
                         )}
                         <button onClick={() => handleOpenModal(result)}>
-                          Visualizar Detalhes
+                          Visualizar
                         </button>
                       </div>
                     </div>
@@ -257,7 +357,8 @@ const ConsultaGeral = () => {
         onClose={handleCloseModal}
         getItemDetails={getItemDetails}
       />
-      {modalOpen && getItemDetails()}
+
+      <console className="log">console.log('clear')</console>
     </div>
   );
 };

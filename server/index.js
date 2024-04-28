@@ -176,13 +176,13 @@ app.get("/endereco", (req, res) => {
 
 // Editar endereço
 app.put("/endereco/:id", (req, res) => {
-  const { rua, predio, andar, apartamento, usuario_id } = req.body;
+  const { rua, predio, andar, apartamento, usuario_id, local_id } = req.body;
   const { id } = req.params;
   const SQL =
-    "UPDATE endereco SET rua = ?, predio = ?, andar = ?, apartamento = ?, usuario_id = ? WHERE id = ?";
+    "UPDATE endereco SET rua = ?, predio = ?, andar = ?, apartamento = ?, usuario_id = ? local_id = ? WHERE id = ?";
   db.query(
     SQL,
-    [rua, predio, andar, apartamento, usuario_id, id],
+    [rua, predio, andar, apartamento, usuario_id, local_id],
     (err, result) => {
       if (err) {
         console.error("Erro ao editar endereço:", err);
@@ -292,7 +292,8 @@ app.post("/produto", upload.single("imagem"), (req, res) => {
 
 // Consultar todos os produtos
 app.get("/produto", (req, res) => {
-  const SQL = "SELECT imagem,nome,descricao,local_id  FROM produto";
+  const SQL =
+    "SELECT imagem,nome,descricao,codigo_barras,local_id  FROM produto";
   db.query(SQL, (err, result) => {
     if (err) {
       console.error("Erro ao consultar produtos:", err);
