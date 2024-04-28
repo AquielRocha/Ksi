@@ -24,7 +24,6 @@ body {
 
 // PÁGINA HOME
 .container-s {
-  overflow: hidden; // Impede a rolagem da página
 
   display: flex;
   flex-direction: row;
@@ -115,9 +114,9 @@ $maxImageSize: 700px;
 }
 
 .images {
+  width: 120%;
   position: static;
   max-width: $maxImageSize;
-  width: 140%; // Aumenta o tamanho da imagem
   height: auto;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -162,6 +161,18 @@ $maxImageSize: 700px;
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.mover {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#imagem-princ{
+  margin-left: 15em;
+  width: 800px;
+  height: 690px;
 }
 
 .alert-s {

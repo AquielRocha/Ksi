@@ -5,6 +5,7 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import { IoMdMail } from "react-icons/io";
 import Background from "../../Components/Background/Background";
 import logo from "../../Components/Assets/logo-princ.jpg";
+import imgprinc from "../../Components/Assets/Post.svg";
 
 const RegisterView = ({
   handleCampo,
@@ -71,6 +72,7 @@ const RegisterView = ({
             </div>
           </form>
         </div>
+          <img id="img-principal" src={imgprinc} alt="imagem principal" />
       </div>
       <Background />
     </div>

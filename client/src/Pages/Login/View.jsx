@@ -4,6 +4,7 @@ import { FaUser } from "react-icons/fa";
 import { RiLockPasswordLine } from "react-icons/ri";
 import logo from "../../Components/Assets/logo-princ.jpg";
 import Background2 from "../../Components/Background-Inicial/background2";
+import imgprinc from "../../Components/Assets/Post.svg";
 
 const LoginView = ({
   userName,
@@ -57,6 +58,7 @@ const LoginView = ({
             </div>
           </form>
         </div>
+          <img id="imagem-princ" src={imgprinc} alt="imagem principal" />
       </div>
 
       <Background2 />
