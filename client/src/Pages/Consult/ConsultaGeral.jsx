@@ -8,6 +8,7 @@ import ReactLoading from "react-loading";
 import { Link } from "react-router-dom";
 import { IoIosReturnLeft } from "react-icons/io";
 import Voltar from "../../Components/Return/Voltar";
+import Modal from "../../Components/Modal/modal";
 
 const ConsultaGeral = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -16,6 +17,20 @@ const ConsultaGeral = () => {
   const [filterOn, setFilterOn] = useState(false);
   const [dataFiltered, setDataFiltered] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null); // Estado para controlar o item selecionado
+  const [modalOpen, setModalOpen] = useState(false); // Estado para controlar a abertura do modal
+
+  // Manipulador de evento para abrir o modal e definir o item selecionado
+  const handleOpenModal = (item) => {
+    setSelectedItem(item);
+    setModalOpen(true);
+  };
+
+  // Manipulador de evento para fechar o modal
+  const handleCloseModal = () => {
+    setSelectedItem(null);
+    setModalOpen(false);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -66,70 +81,88 @@ const ConsultaGeral = () => {
     setFilterOption(e.target.value);
     setFilterOn(false);
   };
-
-const Results = () => {
-  return (
-    <div className="results-container">
-      {loading && <ReactLoading type={"spin"} color={"#000"} />}{" "}
-      {/* Spinner de carregamento */}
-      {!loading && (
-        <>
-          {dataFiltered.length === 0 && filterOn && (
-            <p>Nenhum resultado foi encontrado.</p>
-          )}
-          <div className="results-list">
-            {dataFiltered !== undefined && filterOn === true ? (
-              <div>
-                <h2>Resultados de Endereços:</h2> {/* Subtítulo para endereços */}
-                {dataFiltered.map((result) => (
-                  <div unic className="unico" key={result.id}>
-                    <div className="result-item">
-                      {filterOption === "produto" && (
-                        <Imgg imagePath={result.imagem} size="30px" />
-                      )}
-                      {Object.entries(result).map(([key, value]) => {
-                        if (key !== "imagem") {
-                          return (
-                            <span key={key} className="result-field">
-                              {value}
-                            </span>
-                          );
-                        }
-                        return null;
-                      })}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div>
-                <h2>Resultados de Produtos:</h2> {/* Subtítulo para produtos */}
-                {results.map((result) => (
-                  <div unic className="unico" key={result.id}>
-                    <div className="result-item">
-                      {filterOption === "produto" && (
-                        <Imgg imagePath={result.imagem} size="30px" />
-                      )}
-                      {Object.entries(result).map(
-                        ([key, value]) =>
-                          key !== "imagem" && (
-                            <span key={key} className="result-field">
-                              {value}
-                            </span>
-                          )
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
+  const renderModal = () => {
+    if (modalOpen && selectedItem) {
+      return (
+        <Modal onClose={handleCloseModal}>
+          {/* Conteúdo do modal, exibindo os detalhes do item selecionado */}
+          <h2>Detalhes do Item</h2>
+          <p>Nome: {selectedItem.nome}</p>
+          {/* Adicione mais detalhes conforme necessário */}
+        </Modal>
+      );
+    }
+    return null;
+  };
+  const Results = () => {
+    return (
+      <div className="results-container">
+        {loading && <ReactLoading type={"spin"} color={"#000"} />}{" "}
+        {/* Spinner de carregamento */}
+        {!loading && (
+          <>
+            {dataFiltered.length === 0 && filterOn && (
+              <p>Nenhum resultado foi encontrado.</p>
             )}
-          </div>
-        </>
-      )}
-    </div>
-  );
-};
-
+            <div className="results-list">
+              {dataFiltered !== undefined && filterOn === true ? (
+                <div>
+                  <h2>Resultados de Endereços:</h2>{" "}
+                  {/* Subtítulo para endereços */}
+                  {dataFiltered.map((result) => (
+                    <div unic className="unico" key={result.id}>
+                      <div className="result-item">
+                        {filterOption === "produto" && (
+                          <Imgg imagePath={result.imagem} size="30px" />
+                        )}
+                        {Object.entries(result).map(([key, value]) => {
+                          if (key !== "imagem") {
+                            return (
+                              <span key={key} className="result-field">
+                                {value}
+                              </span>
+                            );
+                          }
+                          return null;
+                        })}
+                        <button onClick={() => handleOpenModal(result)}>
+                          Visualizar
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div>
+                  <h2>Resultados de Produtos:</h2>{" "}
+                  {results.map((result) => (
+                    <div unic className="unico" key={result.id}>
+                      <div className="result-item">
+                        {filterOption === "produto" && (
+                          <Imgg imagePath={result.imagem} size="30px" />
+                        )}
+                        {Object.entries(result).map(
+                          ([key, value]) =>
+                            key !== "imagem" && (
+                              <span key={key} className="result-field">
+                                {value}
+                              </span>
+                            )
+                        )}
+                        <button onClick={() => handleOpenModal(result)}>
+                          Visualizar Detalhes
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </>
+        )}
+      </div>
+    );
+  };
 
   return (
     <div>
@@ -177,12 +210,20 @@ const Results = () => {
         </form>
       </div>
       <div className="consultas">
-        
-        <div className="consulta-container">
-          
-        </div>
+        <div className="consulta-container"></div>
         {Results()}
       </div>
+      {/* Renderize o modal */}
+      <Modal open={modalOpen} onClose={handleCloseModal}>
+        {selectedItem && (
+          <>
+            <h2>Detalhes do Item</h2>
+            <p>ID: {selectedItem.id}</p>
+            <p>Nome: {selectedItem.nome}</p>
+            {/* Adicione mais detalhes conforme necessário */}
+          </>
+        )}
+      </Modal>
     </div>
   );
 };
