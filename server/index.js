@@ -143,22 +143,18 @@ app.post("/login", (req, res) => {
 
 // Adicionar novo endereço
 app.post("/endereco", (req, res) => {
-  const { rua, predio, andar, apartamento, usuario_id, local_id } = req.body;
+  const { rua, predio, andar, apartamento, local_id } = req.body;
   const SQL =
-    "INSERT INTO endereco (rua, predio, andar, apartamento, usuario_id, local_id) VALUES (?, ?, ?, ?, ?, ?)";
-  db.query(
-    SQL,
-    [rua, predio, andar, apartamento, usuario_id, local_id],
-    (err, result) => {
-      if (err) {
-        console.error("Erro ao inserir endereço:", err);
-        res.status(500).send({ error: "Erro interno do servidor" });
-      } else {
-        console.log("Novo endereço inserido com sucesso");
-        res.send({ message: "Novo endereço inserido com sucesso" });
-      }
+    "INSERT INTO endereco (rua, predio, andar, apartamento, local_id) VALUES (?, ?, ?, ?, ?, ?)";
+  db.query(SQL, [rua, predio, andar, apartamento, local_id], (err, result) => {
+    if (err) {
+      console.error("Erro ao inserir endereço:", err);
+      res.status(500).send({ error: "Erro interno do servidor" });
+    } else {
+      console.log("Novo endereço inserido com sucesso");
+      res.send({ message: "Novo endereço inserido com sucesso" });
     }
-  );
+  });
 });
 
 // Consultar todos os endereços
@@ -176,23 +172,19 @@ app.get("/endereco", (req, res) => {
 
 // Editar endereço
 app.put("/endereco/:id", (req, res) => {
-  const { rua, predio, andar, apartamento, usuario_id, local_id } = req.body;
+  const { rua, predio, andar, apartamento, local_id } = req.body;
   const { id } = req.params;
   const SQL =
-    "UPDATE endereco SET rua = ?, predio = ?, andar = ?, apartamento = ?, usuario_id = ? local_id = ? WHERE id = ?";
-  db.query(
-    SQL,
-    [rua, predio, andar, apartamento, usuario_id, local_id],
-    (err, result) => {
-      if (err) {
-        console.error("Erro ao editar endereço:", err);
-        res.status(500).send({ error: "Erro interno do servidor" });
-      } else {
-        console.log("Endereço editado com sucesso");
-        res.send({ message: "Endereço editado com sucesso" });
-      }
+    "UPDATE endereco SET rua = ?, predio = ?, andar = ?, apartamento = ?, local_id = ? WHERE id = ?";
+  db.query(SQL, [rua, predio, andar, apartamento, local_id], (err, result) => {
+    if (err) {
+      console.error("Erro ao editar endereço:", err);
+      res.status(500).send({ error: "Erro interno do servidor" });
+    } else {
+      console.log("Endereço editado com sucesso");
+      res.send({ message: "Endereço editado com sucesso" });
     }
-  );
+  });
 });
 
 // Excluir endereço
