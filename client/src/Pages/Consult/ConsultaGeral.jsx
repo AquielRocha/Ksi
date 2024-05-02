@@ -62,7 +62,7 @@ const ConsultaGeral = () => {
         <div className="itemsmodal">
           {selectedItem && "nome" in selectedItem && (
             <>
-              <Imgg imagePath={selectedItem.imagem} size="100px" />
+              <Imgg imagePath={selectedItem.imagem} size="200px" />
               <p>Nome: {selectedItem.nome}</p>
               <p>Descrição: {selectedItem.descricao}</p>
               <p>CodBarras: {selectedItem.codigo_barras}</p>
@@ -159,22 +159,27 @@ const ConsultaGeral = () => {
             <div className="results-list">
               {dataFiltered !== undefined && filterOn === true ? (
                 <div>
-                  <h2>Resultados de Endereços:</h2>{" "}
                   {dataFiltered.map((result) => (
                     <div unic className="unico" key={result.id}>
                       <div className="result-item">
                         {filterOption === "produto" && (
-                          <Imgg imagePath={result.imagem} size="30px" />
+                          <Imgg imagePath={result.imagem} size="100px" />
                         )}
                         {Object.entries(result).map(([key, value]) => {
                           if (key !== "imagem") {
                             return (
-                              <span key={key} className="result-field">
-                                {value}
-                              </span>
+                              <div key={key} className="result-item">
+                                <span className="result-field-name">
+                                  {key}:
+                                </span>{" "}
+                                <span className="result-field-value">
+                                  {value}
+                                </span>
+                              </div>
                             );
                           }
                         })}
+
                         <button onClick={() => handleOpenModal(result)}>
                           Visualizar
                         </button>
@@ -188,7 +193,7 @@ const ConsultaGeral = () => {
                     <div unic className="unico" key={result.id}>
                       <div className="result-item">
                         {filterOption === "produto" && (
-                          <Imgg imagePath={result.imagem} size="30px" />
+                          <Imgg imagePath={result.imagem} size="100px" />
                         )}
                         {Object.entries(result).map(
                           ([key, value]) =>

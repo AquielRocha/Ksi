@@ -615,7 +615,7 @@ h4 {
 .quadro {
   width: 100%;
   max-width: 101.5rem;
-  height: 40rem;
+  height: 42rem;
   border-radius: 1rem;
   box-shadow: 0.2rem 1.1rem 1.6rem -0.3rem rgba(0, 0, 0, 0.6);
   display: flex;
@@ -623,7 +623,6 @@ h4 {
   justify-content: center;
   align-items: center;
   color: rgb(0, 0, 0);
-  padding: 1.5rem;
   background-color: #ffffff;
 
   /* Ajustes para as labels */
@@ -631,8 +630,7 @@ h4 {
     color: $cor-laranja;
     font-weight: 500;
     text-transform: uppercase;
-    font-size: 1.15rem;
-    margin-right: 1rem;
+    font-size: rem;
     /* Espaçamento entre a label e o input */
     display: flex;
     align-items: center;
@@ -672,7 +670,7 @@ h4 {
 
     button {
       align-self: flex-end;
-      margin-top: 1.2rem;
+      margin-top: 0.2rem;
     }
   }
 }
@@ -802,7 +800,7 @@ select#local {
 .consultas {
   margin-top: 20px;
   width: 100%;
-  max-width: 101.5rem;
+  max-width: 106.5rem;
   border-radius: 1rem;
   box-shadow: 0.2rem 1.1rem 1.6rem -0.3rem rgba(0, 0, 0, 0.6);
   display: flex;
