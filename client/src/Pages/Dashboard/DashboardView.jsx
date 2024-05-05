@@ -5,6 +5,12 @@ import Product from "../../Components/Assets/Product.svg";
 
 const DashboardView = () => (
   <div className="container-wrapper">
+    <div className="sair">
+      <Link to="/">
+        <button>sair</button>
+      </Link>
+    </div>
+
     {/* primeiro bloco */}
     <div className="container">
       <div className="square1-container">
@@ -20,7 +26,6 @@ const DashboardView = () => (
       </div>
     </div>
 
-    {/* segundo bloco */}
     <div className="container">
       <div className="square2-container">
         <h4>Cadastrar</h4>

@@ -582,7 +582,7 @@ app.post("/endereco", (req, res) => {
 
 // Consultar todos os endereços
 app.get("/endereco", (req, res) => {
-  const SQL = "SELECT rua,predio,andar,apartamento,local_id FROM endereco";
+  const SQL = "SELECT id,rua,predio,andar,apartamento,local_id FROM endereco";
   db.query(SQL, (err, result) => {
     if (err) {
       console.error("Erro ao consultar endereços:", err);
@@ -599,15 +599,19 @@ app.put("/endereco/:id", (req, res) => {
   const { id } = req.params;
   const SQL =
     "UPDATE endereco SET rua = ?, predio = ?, andar = ?, apartamento = ?, local_id = ? WHERE id = ?";
-  db.query(SQL, [rua, predio, andar, apartamento, local_id], (err, result) => {
-    if (err) {
-      console.error("Erro ao editar endereço:", err);
-      res.status(500).send({ error: "Erro interno do servidor" });
-    } else {
-      console.log("Endereço editado com sucesso");
-      res.send({ message: "Endereço editado com sucesso" });
+  db.query(
+    SQL,
+    [rua, predio, andar, apartamento, local_id, id],
+    (err, result) => {
+      if (err) {
+        console.error("Erro ao editar endereço:", err);
+        res.status(500).send({ error: "Erro interno do servidor" });
+      } else {
+        console.log("Endereço editado com sucesso");
+        res.send({ message: "Endereço editado com sucesso" });
+      }
     }
-  });
+  );
 });
 
 // Excluir endereço
@@ -642,7 +646,7 @@ app.post("/Local", (req, res) => {
 
 // Consultar todos os locais
 app.get("/local", (req, res) => {
-  const SQL = "SELECT * FROM local";
+  const SQL = "SELECT id,nome FROM local";
   db.query(SQL, (err, result) => {
     if (err) {
       console.error("Erro ao consultar locais:", err);
@@ -657,16 +661,21 @@ app.get("/local", (req, res) => {
 app.put("/local/:id", (req, res) => {
   const { nome } = req.body;
   const { id } = req.params;
-  const SQL = "UPDATE local SET nome = ? WHERE id = ?";
-  db.query(SQL, [nome, id], (err, result) => {
-    if (err) {
-      console.error("Erro ao editar local:", err);
-      res.status(500).send({ error: "Erro interno do servidor" });
-    } else {
-      console.log("Local editado com sucesso");
-      res.send({ message: "Local editado com sucesso" });
-    }
-  });
+
+  try {
+    const SQL = "UPDATE local SET nome = ? WHERE id = ?";
+    db.query(SQL, [nome, id], (err, result) => {
+      if (err) {
+        console.error("Erro ao editar local:", err);
+        res.status(500).send({ error: "Erro interno do servidor" });
+      } else {
+        console.log("Local editado com sucesso");
+        res.send({ message: "Local editado com sucesso" });
+      }
+    });
+  } catch (err) {
+    res.status(400).send({ error: "Erro interno do servidor" });
+  }
 });
 
 // Excluir local
@@ -708,7 +717,7 @@ app.post("/produto", upload.single("imagem"), (req, res) => {
 // Consultar todos os produtos
 app.get("/produto", (req, res) => {
   const SQL =
-    "SELECT imagem,nome,descricao,codigo_barras,local_id  FROM produto";
+    "SELECT id, imagem,nome,descricao,codigo_barras,local_id  FROM produto";
   db.query(SQL, (err, result) => {
     if (err) {
       console.error("Erro ao consultar produtos:", err);
@@ -721,19 +730,23 @@ app.get("/produto", (req, res) => {
 
 // Editar produto
 app.put("/produto/:id", (req, res) => {
-  const { nome, codigo_barras, local_id, imagem } = req.body;
+  const { nome, descricao, codigo_barras, local_id, imagem } = req.body;
   const { id } = req.params;
   const SQL =
-    "UPDATE produto SET nome = ?, codigo_barras = ?, local_id = ?, imagem = ? WHERE id = ?";
-  db.query(SQL, [nome, codigo_barras, local_id, imagem, id], (err, result) => {
-    if (err) {
-      console.error("Erro ao editar produto:", err);
-      res.status(500).send({ error: "Erro interno do servidor" });
-    } else {
-      console.log("Produto editado com sucesso");
-      res.send({ message: "Produto editado com sucesso" });
+    "UPDATE produto SET nome = ?, descricao = ?, codigo_barras = ?, local_id = ?, imagem = ? WHERE id = ?";
+  db.query(
+    SQL,
+    [nome, descricao, codigo_barras, local_id, imagem, id],
+    (err, result) => {
+      if (err) {
+        console.error("Erro ao editar produto:", err);
+        res.status(500).send({ error: "Erro interno do servidor" });
+      } else {
+        console.log("Produto editado com sucesso");
+        res.send({ message: "Produto editado com sucesso" });
+      }
     }
-  });
+  );
 });
 
 // Excluir produto
