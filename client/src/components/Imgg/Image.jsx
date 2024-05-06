@@ -5,7 +5,7 @@ const Imgg = ({ imagePath, size }) => {
     <img
       src={`http://localhost:3002/uploads/${imagePath}`}
       alt="Imagem"
-      style={{ width: size, height: "auto", borderRadius: "100px" }}
+      style={{ width: size, height: "auto", borderRadius: "100%" }}
     />
   );
 };

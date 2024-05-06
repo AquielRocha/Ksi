@@ -166,9 +166,8 @@ const ConsultaGeral = () => {
         <div className="itemsmodal">
           {selectedItem && "nome" in selectedItem && (
             <>
-              <Imgg imagePath={selectedItem.imagem} size="200px" />
-
-              <p>
+              <Imgg imagePath={selectedItem.imagem} size="160px" />
+              <span className="mini">
                 Nome:{" "}
                 {editpro ? (
                   selectedItem.nome
@@ -180,8 +179,8 @@ const ConsultaGeral = () => {
                     onChange={handleInputChange}
                   />
                 )}
-              </p>
-              <p>
+              </span>{" "}
+              <span className="mini">
                 Descrição:{" "}
                 {editpro ? (
                   selectedItem.descricao
@@ -193,8 +192,8 @@ const ConsultaGeral = () => {
                     onChange={handleInputChange}
                   />
                 )}
-              </p>
-              <p>
+              </span>
+              <span className="mini">
                 CodBarras:{" "}
                 {editpro ? (
                   selectedItem.codigo_barras
@@ -206,8 +205,8 @@ const ConsultaGeral = () => {
                     onChange={handleInputChange}
                   />
                 )}
-              </p>
-              <p>
+              </span>
+              <span className="mini">
                 Local:{" "}
                 {editpro ? (
                   selectedItem.local_id
@@ -227,15 +226,13 @@ const ConsultaGeral = () => {
                     ))}
                   </select>
                 )}
-              </p>
-
+              </span>
               <button
                 className={editpro ? "btn" : "btn-hidden"}
                 onClick={() => setEditPro(false)}
               >
                 Editar
               </button>
-
               <button className="btn-ex" onClick={excluirproduto}>
                 Excluir
               </button>

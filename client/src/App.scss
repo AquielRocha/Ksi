@@ -859,30 +859,53 @@ select#local {
 $modal-background-color: #fefefe;
 $modal-border-color: #888;
 $modal-border-radius: 10px;
-$modal-width: 80%;
-$modal-max-width: 600px;
+$modal-width: 34%;
+$modal-max-width: 800px;
 
 // Estilo do modal
 .modal-content {
-  align-items: center;
+  display: flex;
   justify-content: center;
+  flex-direction: row;
   background-color: $modal-background-color;
-  margin: 20% auto;
-  height: 50%;
-  padding: 20px;
-  border: 1px solid $modal-border-color;
+  margin: 10% auto;
+  height: 80%;
+
+  box-shadow: 3px 17px 24px -3px rgba(0, 0, 0, 0.6);
   border-radius: $modal-border-radius;
   width: $modal-width;
   max-width: $modal-max-width;
   position: relative;
+  margin-top: 30px;
+
 
   // Estilo dos itens dentro do modal
   .itemsmodal {
     text-align: center; // Centraliza o conteúdo
+    font-weight: 600;
+
     
 
     span {
       font-weight: bold; // Deixa o texto em negrito
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      margin-bottom: 10px;
+      margin-top: 10px; // Adiciona um espaço entre o span e o parágrafo
+      padding: 20px;
+      border-radius: 6px;
+      border: #000000;
+      background-color: rgb(221, 221, 221);
+
+      
+    }
+    button{
+      align-items: center;
+      justify-content: center;
+      flex-direction: row;
+
+
     }
 
     p {
@@ -907,7 +930,6 @@ $modal-max-width: 600px;
     }
   }
 }
-
 
 .close {
   color: #aaa;
