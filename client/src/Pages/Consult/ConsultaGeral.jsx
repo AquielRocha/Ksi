@@ -36,7 +36,6 @@ const ConsultaGeral = () => {
   });
 
   const [editp, setEditp] = useState({
-    imagem: "",
     nome: "",
     descricao: "",
     codigo_barras: "",
@@ -176,7 +175,8 @@ const ConsultaGeral = () => {
                     type="text"
                     name="nome"
                     value={editp.nome}
-                    onChange={handleInputChange}
+                    onChang
+                    e={handleInputChange}
                   />
                 )}
               </span>{" "}
@@ -449,7 +449,10 @@ const ConsultaGeral = () => {
                           }
                         })}
 
-                        <button onClick={() => handleOpenModal(result)}>
+                        <button
+                          className=""
+                          onClick={() => handleOpenModal(result)}
+                        >
                           Visualizar
                         </button>
                       </div>
@@ -472,7 +475,10 @@ const ConsultaGeral = () => {
                               </span>
                             )
                         )}
-                        <button onClick={() => handleOpenModal(result)}>
+                        <button
+                          className="btn"
+                          onClick={() => handleOpenModal(result)}
+                        >
                           Visualizar
                         </button>
                       </div>
@@ -532,11 +538,7 @@ const ConsultaGeral = () => {
           </div>
         </form>
       </div>
-      <div className="consultas">
-        <div className="consulta-container"></div>
-        {Results()}
-      </div>
-      {/* Renderize o modal */}
+      <div className="consultas">{Results()}</div>
       <Modal
         open={modalOpen}
         onClose={handleCloseModal}

@@ -730,13 +730,13 @@ app.get("/produto", (req, res) => {
 
 // Editar produto
 app.put("/produto/:id", (req, res) => {
-  const { nome, descricao, codigo_barras, local_id, imagem } = req.body;
+  const { nome, descricao, codigo_barras, local_id } = req.body;
   const { id } = req.params;
   const SQL =
-    "UPDATE produto SET nome = ?, descricao = ?, codigo_barras = ?, local_id = ?, imagem = ? WHERE id = ?";
+    "UPDATE produto SET nome = ?, descricao = ?, codigo_barras = ?, local_id = ? WHERE id = ?";
   db.query(
     SQL,
-    [nome, descricao, codigo_barras, local_id, imagem, id],
+    [nome, descricao, codigo_barras, local_id, id],
     (err, result) => {
       if (err) {
         console.error("Erro ao editar produto:", err);
