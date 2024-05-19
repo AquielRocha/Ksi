@@ -175,8 +175,7 @@ const ConsultaGeral = () => {
                     type="text"
                     name="nome"
                     value={editp.nome}
-                    onChang
-                    e={handleInputChange}
+                    onChange={handleInputChange}
                   />
                 )}
               </span>{" "}
