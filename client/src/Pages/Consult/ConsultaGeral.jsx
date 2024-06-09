@@ -27,6 +27,7 @@ const ConsultaGeral = () => {
   const [editpro, setEditPro] = useState(true);
   const [editMode, setEditMode] = useState(false);
   const [locais, setLocais] = useState([]);
+  const [enderecos, setEnderecos] = useState([]);
   const [edit, setEdit] = useState({
     rua: "",
     predio: "",
@@ -40,8 +41,20 @@ const ConsultaGeral = () => {
     descricao: "",
     codigo_barras: "",
     local_id: "",
+    endereco_id: "",
   });
 
+  useEffect(() => {
+    // Carregar enderecos disponíveis
+    axios
+      .get("http://localhost:3002/endereco")
+      .then((response) => {
+        setEnderecos(response.data);
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar endereços:", error);
+      });
+  }, []);
   useEffect(() => {
     // Carregar locais disponíveis
     axios
@@ -81,6 +94,11 @@ const ConsultaGeral = () => {
   };
   const handleSave = async () => {
     try {
+      if (!selectedItem) {
+        console.error("Nenhum item selecionado.");
+        return;
+      }
+
       const response = await axios.put(
         `http://localhost:3002/endereco/${selectedItem.id}`,
         edit
@@ -96,8 +114,13 @@ const ConsultaGeral = () => {
 
   const handleSaveP = async () => {
     try {
+      if (!selectedItem) {
+        console.error("Nenhum item selecionado.");
+        return;
+      }
+
       const response = await axios.put(
-        `http://localhost:3002/produto/${selectedItem.id}`,
+        `http://localhost:3002/produto/${selectedItem.produto_id}`,
         editp
       );
       console.log("Produto editado com sucesso:", response.data);
@@ -138,7 +161,7 @@ const ConsultaGeral = () => {
     try {
       if (selectedItem) {
         const response = await axios.delete(
-          `http://localhost:3002/produto/${selectedItem.id}`, // Acessa o ID do prduto
+          `http://localhost:3002/produto/${selectedItem.produto_id}`, // Acessa o ID do prduto
           {
             headers: {
               accept: "*/*",
@@ -163,13 +186,13 @@ const ConsultaGeral = () => {
     return (
       <>
         <div className="itemsmodal">
-          {selectedItem && "nome" in selectedItem && (
+          {selectedItem && "produto_id" in selectedItem && (
             <>
               <Imgg imagePath={selectedItem.imagem} size="160px" />
               <span className="mini">
                 Nome:{" "}
                 {editpro ? (
-                  selectedItem.nome
+                  selectedItem.produto_nome
                 ) : (
                   <input
                     type="text"
@@ -182,7 +205,7 @@ const ConsultaGeral = () => {
               <span className="mini">
                 Descrição:{" "}
                 {editpro ? (
-                  selectedItem.descricao
+                  selectedItem.produto_descricao
                 ) : (
                   <input
                     type="text"
@@ -195,10 +218,10 @@ const ConsultaGeral = () => {
               <span className="mini">
                 CodBarras:{" "}
                 {editpro ? (
-                  selectedItem.codigo_barras
+                  selectedItem.produto_codigo_barras
                 ) : (
                   <input
-                    type="text"
+                    type="number"
                     name="codigo_barras"
                     value={editp.codigo_barras}
                     onChange={handleInputChange}
@@ -208,7 +231,7 @@ const ConsultaGeral = () => {
               <span className="mini">
                 Local:{" "}
                 {editpro ? (
-                  selectedItem.local_id
+                  selectedItem.local_nome
                 ) : (
                   <select
                     name="local_id"
@@ -226,12 +249,92 @@ const ConsultaGeral = () => {
                   </select>
                 )}
               </span>
-              <button
-                className={editpro ? "btn" : "btn-hidden"}
-                onClick={() => setEditPro(false)}
-              >
-                Editar
-              </button>
+              <span className="mini">
+                Endereco:{" "}
+                {editpro ? (
+                  selectedItem.endereco_id
+                ) : (
+                  <select
+                    name="endereco_id"
+                    value={editp.endereco_id}
+                    onChange={handleInputChange}
+                  >
+                    <option className="option-default" key="default" value="">
+                      Selecione o endereco
+                    </option>
+                    {enderecos.map((endereco) => (
+                      <option key={endereco.id} value={endereco.id}>
+                        {endereco.predio}
+                      </option>
+                    ))}
+                  </select>
+                )}
+              </span>
+              <h4>Endereço</h4>
+              <span className="mini">
+                Rua:{" "}
+                {editpro ? (
+                  selectedItem.endereco_rua
+                ) : (
+                  <input
+                    disabled
+                    type="text"
+                    name=" endereco_rua"
+                    value={editp.endereco_rua}
+                    onChange={handleInputChange}
+                  />
+                )}
+              </span>
+              <span className="mini">
+                Andar:{" "}
+                {editpro ? (
+                  selectedItem.endereco_andar
+                ) : (
+                  <input
+                    disabled
+                    type="text"
+                    name=" endereco_andar"
+                    value={editp.endereco_andar}
+                    onChange={handleInputChange}
+                  />
+                )}
+              </span>
+              <span className="mini">
+                Rua:{" "}
+                {editpro ? (
+                  selectedItem.endereco_apartamento
+                ) : (
+                  <input
+                    disabled
+                    type="text"
+                    name=" endereco_apartamento"
+                    value={editp.endereco_apartamento}
+                    onChange={handleInputChange}
+                  />
+                )}
+              </span>
+              <span className="mini">
+                Predio:{" "}
+                {editpro ? (
+                  selectedItem.endereco_predio
+                ) : (
+                  <input
+                    disabled
+                    type="text"
+                    name=" endereco_predio"
+                    value={editp.endereco_predio}
+                    onChange={handleInputChange}
+                  />
+                )}
+              </span>
+              {selectedItem && "produto_nome" in selectedItem && (
+                <button
+                  className={editpro ? "btn" : "btn-hidden"}
+                  onClick={() => setEditPro(false)}
+                >
+                  Editar
+                </button>
+              )}
               <button className="btn-ex" onClick={excluirproduto}>
                 Excluir
               </button>
@@ -242,6 +345,7 @@ const ConsultaGeral = () => {
               )}
             </>
           )}
+
           {selectedItem && "predio" in selectedItem && (
             <>
               <p>
@@ -375,8 +479,8 @@ const ConsultaGeral = () => {
     setFilterOn(true);
     if (filterOption === "produto") {
       setDataFiltered(
-        results.filter(({ nome }) => {
-          return nome.toLowerCase() === searchTerm.toLowerCase();
+        results.filter(({ produto_nome }) => {
+          return produto_nome.toLowerCase() === searchTerm.toLowerCase();
         })
       );
     }

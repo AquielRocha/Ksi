@@ -9,10 +9,23 @@ const Produto = () => {
   const [codigo_barras, setCodigo_barras] = useState("");
   const [imagem, setImagem] = useState(null);
   const [local, setLocal] = useState("");
+  const [endereco, setEndereco] = useState("");
+  const [enderecos, setEnderecos] = useState([]);
   const [locais, setLocais] = useState([]);
   const navigateTo = useNavigate();
   const [error, setError] = useState(""); // Estado para mensagens de erro
   const [successMessage, setSuccessMessage] = useState(""); // Estado para mensagens de sucesso
+
+  useEffect(() => {
+    // Carregar os enderecos disponíveis ao montar o componente
+    Axios.get("http://localhost:3002/endereco")
+      .then((response) => {
+        setEnderecos(response.data);
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar os enderecos:", error);
+      });
+  }, []);
 
   useEffect(() => {
     // Carregar os locais disponíveis ao montar o componente
@@ -31,6 +44,7 @@ const Produto = () => {
       !descricao.trim() ||
       !codigo_barras.trim() ||
       !local ||
+      !endereco ||
       !imagem
     ) {
       setError("Por favor, preencha todos os campos.");
@@ -43,6 +57,7 @@ const Produto = () => {
     formData.append("codigo_barras", codigo_barras);
     formData.append("imagem", imagem);
     formData.append("local_id", local);
+    formData.append("endereco_id", endereco);
 
     Axios.post("http://localhost:3002/produto", formData, {
       headers: {
@@ -56,6 +71,7 @@ const Produto = () => {
         setDescricao("");
         setCodigo_barras("");
         setLocal("");
+        setEndereco("");
         setImagem(null);
         setError(""); // Limpa mensagens de erro anteriores, se houver
       })
@@ -117,6 +133,28 @@ const Produto = () => {
                 {locais.map((local) => (
                   <option key={local.id} value={local.id}>
                     {local.nome}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="input-container">
+            <label className="label" htmlFor="endereco">
+              Endereco:
+            </label>
+            <div className="select-container">
+              <select
+                id="endereco"
+                value={endereco}
+                onChange={(e) => setEndereco(e.target.value)}
+              >
+                <option className="option-default" key="default" value="">
+                  Selecione o Endereco
+                </option>
+                {enderecos.map((endereco) => (
+                  <option key={endereco.id} value={endereco.id}>
+                    {endereco.predio}
                   </option>
                 ))}
               </select>

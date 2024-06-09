@@ -695,13 +695,13 @@ app.delete("/local/:id", (req, res) => {
 
 //novo prodiuto
 app.post("/produto", upload.single("imagem"), (req, res) => {
-  const { nome, descricao, codigo_barras, local_id } = req.body;
+  const { nome, descricao, codigo_barras, local_id, endereco_id } = req.body;
   const nomeImagem = req.file.filename; // Nome do arquivo enviado pelo multer
   const SQL =
-    "INSERT INTO produto (nome, descricao, codigo_barras, local_id, imagem) VALUES (?, ?, ?, ?, ?)";
+    "INSERT INTO produto (nome, descricao, codigo_barras, local_id, endereco_id, imagem) VALUES (?, ?, ?, ?, ?, ?)";
   db.query(
     SQL,
-    [nome, descricao, codigo_barras, local_id, nomeImagem],
+    [nome, descricao, codigo_barras, local_id, endereco_id, nomeImagem],
     (err, result) => {
       if (err) {
         console.error("Erro ao inserir produto:", err);
@@ -716,8 +716,24 @@ app.post("/produto", upload.single("imagem"), (req, res) => {
 
 // Consultar todos os produtos
 app.get("/produto", (req, res) => {
-  const SQL =
-    "SELECT id, imagem,nome,descricao,codigo_barras,local_id  FROM produto";
+  const SQL = `
+    SELECT 
+    produto.id AS produto_id, 
+    produto.imagem  ,  
+      produto.nome AS produto_nome, 
+      produto.descricao AS produto_descricao, 
+      produto.codigo_barras AS produto_codigo_barras, 
+      local.nome AS local_nome, 
+      produto.endereco_id AS endereco_id,
+      endereco.rua AS endereco_rua, 
+      endereco.andar AS endereco_andar, 
+      endereco.apartamento AS endereco_apartamento, 
+      endereco.predio AS endereco_predio
+    FROM produto
+    INNER JOIN local ON produto.local_id = local.id
+    INNER JOIN endereco ON produto.endereco_id = endereco.id;
+  `;
+
   db.query(SQL, (err, result) => {
     if (err) {
       console.error("Erro ao consultar produtos:", err);
@@ -730,13 +746,13 @@ app.get("/produto", (req, res) => {
 
 // Editar produto
 app.put("/produto/:id", (req, res) => {
-  const { nome, descricao, codigo_barras, local_id } = req.body;
+  const { nome, descricao, codigo_barras, local_id, endereco_id } = req.body;
   const { id } = req.params;
   const SQL =
-    "UPDATE produto SET nome = ?, descricao = ?, codigo_barras = ?, local_id = ? WHERE id = ?";
+    "UPDATE produto SET nome = ?, descricao = ?, codigo_barras = ?, local_id = ?, endereco_id = ? WHERE id = ?";
   db.query(
     SQL,
-    [nome, descricao, codigo_barras, local_id, id],
+    [nome, descricao, codigo_barras, local_id, endereco_id, id],
     (err, result) => {
       if (err) {
         console.error("Erro ao editar produto:", err);
