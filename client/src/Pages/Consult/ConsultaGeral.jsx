@@ -348,7 +348,8 @@ const ConsultaGeral = () => {
 
           {selectedItem && "predio" in selectedItem && (
             <>
-              <p>
+              <h2>Detalhes Endereço</h2>
+              <span className="mini">
                 RUA:{" "}
                 {editpro ? (
                   selectedItem.rua
@@ -361,8 +362,8 @@ const ConsultaGeral = () => {
                   />
                 )}
                 <br />
-              </p>
-              <p>
+              </span>
+              <span className="mini">
                 PREDIO:{" "}
                 {editpro ? (
                   selectedItem.predio
@@ -375,8 +376,8 @@ const ConsultaGeral = () => {
                   />
                 )}
                 <br />
-              </p>
-              <p>
+              </span>
+              <span className="mini">
                 ANDAR:{" "}
                 {editpro ? (
                   selectedItem.andar
@@ -389,8 +390,8 @@ const ConsultaGeral = () => {
                   />
                 )}
                 <br />
-              </p>
-              <p>
+              </span>
+              <span className="mini">
                 APARTAMENTO:{" "}
                 {editpro ? (
                   selectedItem.apartamento
@@ -403,8 +404,8 @@ const ConsultaGeral = () => {
                   />
                 )}
                 <br />
-              </p>
-              <p>
+              </span>
+              <span className="mini">
                 LOCAL:{" "}
                 {editpro ? (
                   selectedItem.local_id
@@ -425,7 +426,7 @@ const ConsultaGeral = () => {
                   </select>
                 )}
                 <br />
-              </p>
+              </span>
 
               <button
                 className={editpro ? "btn" : "btn-hidden"}
@@ -537,23 +538,13 @@ const ConsultaGeral = () => {
                         {filterOption === "produto" && (
                           <Imgg imagePath={result.imagem} size="100px" />
                         )}
-                        {Object.entries(result).map(([key, value]) => {
-                          if (key !== "imagem") {
-                            return (
-                              <div key={key} className="result-item">
-                                <span className="result-field-name">
-                                  {key}:
-                                </span>{" "}
-                                <span className="result-field-value">
-                                  {value}
-                                </span>
-                              </div>
-                            );
-                          }
-                        })}
+                        <span> {result.produto_nome}</span>
+                        <span> Local:{result.local_nome}</span>
+                        <span> CodBarras:{result.produto_codigo_barras}</span>
+                        <span> Endereço: {result.endereco_predio}</span>
 
                         <button
-                          className=""
+                          className="btn"
                           onClick={() => handleOpenModal(result)}
                         >
                           Visualizar

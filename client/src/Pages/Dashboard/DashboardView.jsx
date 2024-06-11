@@ -7,7 +7,7 @@ const DashboardView = () => (
   <div className="container-wrapper">
     <div className="sair">
       <Link to="/">
-        <button>sair</button>
+        <button className="btn sair-btn">SAIR</button>
       </Link>
     </div>
 
