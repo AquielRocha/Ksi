@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "../../Components/Header/Headers";
-import Background from "../../Components/Background/Background";
+import Header from "../../components/Header/Headers";
+import Background from "../../components/Background/Background";
 import View from "./DashboardView";
 
 const Dashboard = () => (
