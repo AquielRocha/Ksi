@@ -7,7 +7,7 @@ import Background2 from '.c/../components/Background-Inicial/background2';
 
 
 
-fcnction Home() {
+function Home() {
   return (
     <>
 
