@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../Components/Assets/logo-princ.jpg';
-import Cara from '../../Components/Assets/Heavy_box.gif';
-import Header from '../../Components/Header/Headers';
-import Background2 from '../../Components/Background-Inicial/background2';
+import logo from '../../components/assets/logo-princ.jpg';
+import Cara from '../../components/assets/Heavy_box.gif';
+import Header from '../../components/Header/Headers';
+import Background2 from '.c/../components/Background-Inicial/background2';
 
 
 
-function Home() {
+fcnction Home() {
   return (
     <>
 
