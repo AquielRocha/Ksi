@@ -1,12 +1,13 @@
 const express = require("express");
 const app = express();
-const mysql = require("mysql");
+const { Pool } = require("pg");
 const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
 const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 
+// Configuração do Swagger
 const options = {
   definition: {
     openapi: "3.0.0",
@@ -26,20 +27,21 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 app.use(express.json());
 app.use(cors());
 
-// Configuração do Banco de Dados MySQL
-const db = mysql.createConnection({
-  user: "root",
-  host: "localhost",
-  password: "",
-  database: "novobanco",
+// Configuração do Banco de Dados PostgreSQL
+const pool = new Pool({
+  user: 'postgres',
+  host: 'localhost',
+  database: 'novobanco',
+  password: 'ASD',
+  port: 6000, // Porta padrão do PostgreSQL
 });
 
 // Conectar ao banco de dados
-db.connect((err) => {
+pool.connect((err) => {
   if (err) {
-    console.error("Erro ao conectar-se ao banco de dados:", err);
+    console.error('Erro ao conectar-se ao banco de dados:', err);
   } else {
-    console.log("Conectado ao banco de dados MySQL");
+    console.log('Conectado ao banco de dados PostgreSQL');
   }
 });
 
@@ -59,14 +61,11 @@ const upload = multer({ storage: storage });
 
 // Rota para lidar com o upload de imagens
 app.post("/uploads", upload.single("imagem"), (req, res) => {
-  // Verifica se o arquivo foi enviado corretamente
   if (!req.file) {
     return res.status(400).send("Nenhum arquivo enviado.");
   }
 
   console.log("Arquivo enviado:", req.file);
-
-  // Retorna o caminho do arquivo enviado
   res.send({ imagePath: req.file.path });
 });
 
@@ -74,422 +73,14 @@ app.post("/uploads", upload.single("imagem"), (req, res) => {
 app.get("/uploads/:imageName", (req, res) => {
   const imageName = req.params.imageName;
   const imagePath = path.join(__dirname, "/uploads", imageName); // Caminho completo para a imagem
-
-  // Envie a imagem como resposta
   res.sendFile(imagePath);
 });
-
-/**
- * @swagger
- * /usuario:
- *   post:
- *     description: Cria um novo usuário
- *     parameters:
- *       - name: nome
- *         description: Nome do usuário
- *         in: formData
- *         required: true
- *         type: string
- *       - name: email
- *         description: Email do usuário
- *         in: formData
- *         required: true
- *         type: string
- *       - name: senha
- *         description: Senha do usuário
- *         in: formData
- *         required: true
- *         type: string
- *     responses:
- *       200:
- *         description: Usuário criado com sucesso
- *       500:
- *         description: Erro interno do servidor
- */
-
-/**
- * @swagger
- * /usuario:
- *   get:
- *     description: Obtém todos os usuários
- *     responses:
- *       200:
- *         description: Lista de usuários obtida com sucesso
- *       500:
- *         description: Erro interno do servidor
- */
-
-/**
- * @swagger
- * /usuario/{id}:
- *   put:
- *     description: Edita um usuário existente
- *     parameters:
- *       - name: id
- *         description: ID do usuário a ser editado
- *         in: path
- *         required: true
- *         type: integer
- *       - name: nome
- *         description: Novo nome do usuário
- *         in: formData
- *         required: true
- *         type: string
- *       - name: email
- *         description: Novo email do usuário
- *         in: formData
- *         required: true
- *         type: string
- *       - name: senha
- *         description: Nova senha do usuário
- *         in: formData
- *         required: true
- *         type: string
- *     responses:
- *       200:
- *         description: Usuário editado com sucesso
- *       500:
- *         description: Erro interno do servidor
- */
-
-/**
- * @swagger
- * /usuario/{id}:
- *   delete:
- *     description: Exclui um usuário existente
- *     parameters:
- *       - name: id
- *         description: ID do usuário a ser excluído
- *         in: path
- *         required: true
- *         type: integer
- *     responses:
- *       200:
- *         description: Usuário excluído com sucesso
- *       500:
- *         description: Erro interno do servidor
- */
-
-/**
- * @swagger
- * /login:
- *   post:
- *     description: Autentica um usuário
- *     parameters:
- *       - name: userName
- *         description: Nome de usuário
- *         in: formData
- *         required: true
- *         type: string
- *       - name: password
- *         description: Senha do usuário
- *         in: formData
- *         required: true
- *         type: string
- *     responses:
- *       200:
- *         description: Login bem-sucedido
- *       401:
- *         description: Credenciais inválidas
- *       500:
- *         description: Erro interno do servidor
- */
-
-/**
- * @swagger
- * /endereco:
- *   post:
- *     description: Adiciona um novo endereço
- *     parameters:
- *       - name: rua
- *         description: Rua do endereço
- *         in: formData
- *         required: true
- *         type: string
- *       - name: predio
- *         description: Prédio do endereço
- *         in: formData
- *         required: true
- *         type: string
- *       - name: andar
- *         description: Andar do endereço
- *         in: formData
- *         required: true
- *         type: integer
- *       - name: apartamento
- *         description: Apartamento do endereço
- *         in: formData
- *         required: true
- *         type: integer
- *       - name: local_id
- *         description: ID do local associado ao endereço
- *         in: formData
- *         required: true
- *         type: integer
- *     responses:
- *       200:
- *         description: Novo endereço inserido com sucesso
- *       500:
- *         description: Erro interno do servidor
- */
-
-/**
- * @swagger
- * /endereco:
- *   get:
- *     description: Obtém todos os endereços
- *     responses:
- *       200:
- *         description: Lista de endereços obtida com sucesso
- *       500:
- *         description: Erro interno do servidor
- */
-
-/**
- * @swagger
- * /endereco/{id}:
- *   put:
- *     description: Edita um endereço existente
- *     parameters:
- *       - name: id
- *         description: ID do endereço a ser editado
- *         in: path
- *         required: true
- *         type: integer
- *       - name: rua
- *         description: Nova rua do endereço
- *         in: formData
- *         required: true
- *         type: string
- *       - name: predio
- *         description: Novo prédio do endereço
- *         in: formData
- *         required: true
- *         type: string
- *       - name: andar
- *         description: Novo andar do endereço
- *         in: formData
- *         required: true
- *         type: integer
- *       - name: apartamento
- *         description: Novo apartamento do endereço
- *         in: formData
- *         required: true
- *         type: integer
- *       - name: local_id
- *         description: Novo ID do local associado ao endereço
- *         in: formData
- *         required: true
- *         type: integer
- *     responses:
- *       200:
- *         description: Endereço editado com sucesso
- *       500:
- *         description: Erro interno do servidor
- */
-
-/**
- * @swagger
- * /endereco/{id}:
- *   delete:
- *     description: Exclui um endereço existente
- *     parameters:
- *       - name: id
- *         description: ID do endereço a ser excluído
- *         in: path
- *         required: true
- *         type: integer
- *     responses:
- *       200:
- *         description: Endereço excluído com sucesso
- *       500:
- *         description: Erro interno do servidor
- */
-
-/**
- * @swagger
- * /local:
- *   post:
- *     description: Adiciona um novo local
- *     parameters:
- *       - name: nome
- *         description: Nome do local
- *         in: formData
- *         required: true
- *         type: string
- *     responses:
- *       200:
- *         description: Novo local inserido com sucesso
- *       500:
- *         description: Erro interno do servidor
- */
-
-/**
- * @swagger
- * /local:
- *   get:
- *     description: Obtém todos os locais
- *     responses:
- *       200:
- *         description: Lista de locais obtida com sucesso
- *       500:
- *         description: Erro interno do servidor
- */
-
-/**
- * @swagger
- * /local/{id}:
- *   put:
- *     description: Edita um local existente
- *     parameters:
- *       - name: id
- *         description: ID do local a ser editado
- *         in: path
- *         required: true
- *         type: integer
- *       - name: nome
- *         description: Novo nome do local
- *         in: formData
- *         required: true
- *         type: string
- *     responses:
- *       200:
- *         description: Local editado com sucesso
- *       500:
- *         description: Erro interno do servidor
- */
-
-/**
- * @swagger
- * /local/{id}:
- *   delete:
- *     description: Exclui um local existente
- *     parameters:
- *       - name: id
- *         description: ID do local a ser excluído
- *         in: path
- *         required: true
- *         type: integer
- *     responses:
- *       200:
- *         description: Local excluído com sucesso
- *       500:
- *         description: Erro interno do servidor
- */
-
-/**
- * @swagger
- * /produto:
- *   post:
- *     description: Adiciona um novo produto
- *     consumes:
- *       - multipart/form-data
- *     parameters:
- *       - name: imagem
- *         description: Imagem do produto
- *         in: formData
- *         required: true
- *         type: file
- *       - name: nome
- *         description: Nome do produto
- *         in: formData
- *         required: true
- *         type: string
- *       - name: descricao
- *         description: Descrição do produto
- *         in: formData
- *         required: true
- *         type: string
- *       - name: codigo_barras
- *         description: Código de barras do produto
- *         in: formData
- *         required: true
- *         type: string
- *       - name: local_id
- *         description: ID do local associado ao produto
- *         in: formData
- *         required: true
- *         type: integer
- *     responses:
- *       200:
- *         description: Novo produto inserido com sucesso
- *       500:
- *         description: Erro interno do servidor
- */
-
-/**
- * @swagger
- * /produto:
- *   get:
- *     description: Obtém todos os produtos
- *     responses:
- *       200:
- *         description: Lista de produtos obtida com sucesso
- *       500:
- *         description: Erro interno do servidor
- */
-
-/**
- * @swagger
- * /produto/{id}:
- *   put:
- *     description: Edita um produto existente
- *     parameters:
- *       - name: id
- *         description: ID do produto a ser editado
- *         in: path
- *         required: true
- *         type: integer
- *       - name: imagem
- *         description: Nova imagem do produto
- *         in: formData
- *         required: true
- *         type: file
- *       - name: nome
- *         description: Novo nome do produto
- *         in: formData
- *         required: true
- *         type: string
- *       - name: codigo_barras
- *         description: Novo código de barras do produto
- *         in: formData
- *         required: true
- *         type: string
- *       - name: local_id
- *         description: Novo ID do local associado ao produto
- *         in: formData
- *         required: true
- *         type: integer
- *     responses:
- *       200:
- *         description: Produto editado com sucesso
- *       500:
- *         description: Erro interno do servidor
- */
-
-/**
- * @swagger
- * /produto/{id}:
- *   delete:
- *     description: Exclui um produto existente
- *     parameters:
- *       - name: id
- *         description: ID do produto a ser excluído
- *         in: path
- *         required: true
- *         type: integer
- *     responses:
- *       200:
- *         description: Produto excluído com sucesso
- *       500:
- *         description: Erro interno do servidor
- */
 
 // Inserir novo usuário
 app.post("/usuario", (req, res) => {
   const { nome, email, senha } = req.body;
-  const SQL = "INSERT INTO usuario (nome, email, senha) VALUES (?, ?, ?)";
-  db.query(SQL, [nome, email, senha], (err, result) => {
+  const SQL = "INSERT INTO usuario (nome, email, senha) VALUES ($1, $2, $3)";
+  pool.query(SQL, [nome, email, senha], (err) => {
     if (err) {
       console.error("Erro ao inserir usuário:", err);
       res.status(500).send({ error: "Erro interno do servidor" });
@@ -503,12 +94,12 @@ app.post("/usuario", (req, res) => {
 // Consultar todos os usuários
 app.get("/usuario", (req, res) => {
   const SQL = "SELECT * FROM usuario";
-  db.query(SQL, (err, result) => {
+  pool.query(SQL, (err, result) => {
     if (err) {
       console.error("Erro ao consultar usuários:", err);
       res.status(500).send({ error: "Erro interno do servidor" });
     } else {
-      res.send(result);
+      res.send(result.rows); // Use result.rows para obter os dados
     }
   });
 });
@@ -517,8 +108,8 @@ app.get("/usuario", (req, res) => {
 app.put("/usuario/:id", (req, res) => {
   const { nome, email, senha } = req.body;
   const { id } = req.params;
-  const SQL = "UPDATE usuario SET nome = ?, email = ?, senha = ? WHERE id = ?";
-  db.query(SQL, [nome, email, senha, id], (err, result) => {
+  const SQL = "UPDATE usuario SET nome = $1, email = $2, senha = $3 WHERE id = $4";
+  pool.query(SQL, [nome, email, senha, id], (err) => {
     if (err) {
       console.error("Erro ao editar usuário:", err);
       res.status(500).send({ error: "Erro interno do servidor" });
@@ -532,8 +123,8 @@ app.put("/usuario/:id", (req, res) => {
 // Excluir usuário
 app.delete("/usuario/:id", (req, res) => {
   const { id } = req.params;
-  const SQL = "DELETE FROM usuario WHERE id = ?";
-  db.query(SQL, [id], (err, result) => {
+  const SQL = "DELETE FROM usuario WHERE id = $1";
+  pool.query(SQL, [id], (err) => {
     if (err) {
       console.error("Erro ao excluir usuário:", err);
       res.status(500).send({ error: "Erro interno do servidor" });
@@ -544,16 +135,16 @@ app.delete("/usuario/:id", (req, res) => {
   });
 });
 
-/// Autenticar usuário
+// Autenticar usuário
 app.post("/login", (req, res) => {
-  const { userName, password } = req.body; // Corrigido para 'userName' em vez de 'nome'
-  const SQL = "SELECT * FROM usuario WHERE nome = ? AND senha = ?"; // Corrigido para 'nome' em vez de 'userName'
-  db.query(SQL, [userName, password], (err, result) => {
+  const { userName, password } = req.body; 
+  const SQL = "SELECT * FROM usuario WHERE nome = $1 AND senha = $2";
+  pool.query(SQL, [userName, password], (err, result) => {
     if (err) {
       console.error("Erro ao autenticar usuário:", err);
       res.status(500).send({ error: "Erro interno do servidor" });
     } else {
-      if (result.length > 0) {
+      if (result.rows.length > 0) {
         console.log("Usuário autenticado com sucesso");
         res.send({ message: "Login bem-sucedido" });
       } else {
@@ -568,8 +159,8 @@ app.post("/login", (req, res) => {
 app.post("/endereco", (req, res) => {
   const { rua, predio, andar, apartamento, local_id } = req.body;
   const SQL =
-    "INSERT INTO endereco (rua, predio, andar, apartamento, local_id) VALUES (?, ?, ?, ?, ?)";
-  db.query(SQL, [rua, predio, andar, apartamento, local_id], (err, result) => {
+    "INSERT INTO endereco (rua, predio, andar, apartamento, local_id) VALUES ($1, $2, $3, $4, $5)";
+  pool.query(SQL, [rua, predio, andar, apartamento, local_id], (err) => {
     if (err) {
       console.error("Erro ao inserir endereço:", err);
       res.status(500).send({ error: "Erro interno do servidor" });
@@ -582,13 +173,13 @@ app.post("/endereco", (req, res) => {
 
 // Consultar todos os endereços
 app.get("/endereco", (req, res) => {
-  const SQL = "SELECT id,rua,predio,andar,apartamento,local_id FROM endereco";
-  db.query(SQL, (err, result) => {
+  const SQL = "SELECT id, rua, predio, andar, apartamento, local_id FROM endereco";
+  pool.query(SQL, (err, result) => {
     if (err) {
       console.error("Erro ao consultar endereços:", err);
       res.status(500).send({ error: "Erro interno do servidor" });
     } else {
-      res.send(result);
+      res.send(result.rows);
     }
   });
 });
@@ -598,11 +189,11 @@ app.put("/endereco/:id", (req, res) => {
   const { rua, predio, andar, apartamento, local_id } = req.body;
   const { id } = req.params;
   const SQL =
-    "UPDATE endereco SET rua = ?, predio = ?, andar = ?, apartamento = ?, local_id = ? WHERE id = ?";
-  db.query(
+    "UPDATE endereco SET rua = $1, predio = $2, andar = $3, apartamento = $4, local_id = $5 WHERE id = $6";
+  pool.query(
     SQL,
     [rua, predio, andar, apartamento, local_id, id],
-    (err, result) => {
+    (err) => {
       if (err) {
         console.error("Erro ao editar endereço:", err);
         res.status(500).send({ error: "Erro interno do servidor" });
@@ -617,8 +208,8 @@ app.put("/endereco/:id", (req, res) => {
 // Excluir endereço
 app.delete("/endereco/:id", (req, res) => {
   const { id } = req.params;
-  const SQL = "DELETE FROM endereco WHERE id = ?";
-  db.query(SQL, [id], (err, result) => {
+  const SQL = "DELETE FROM endereco WHERE id = $1";
+  pool.query(SQL, [id], (err) => {
     if (err) {
       console.error("Erro ao excluir endereço:", err);
       res.status(500).send({ error: "Erro interno do servidor" });
@@ -630,10 +221,10 @@ app.delete("/endereco/:id", (req, res) => {
 });
 
 // Adicionar novo local
-app.post("/Local", (req, res) => {
+app.post("/local", (req, res) => {
   const { nome } = req.body;
-  const SQL = "INSERT INTO local (nome) VALUES (?)";
-  db.query(SQL, [nome], (err, result) => {
+  const SQL = "INSERT INTO local (nome) VALUES ($1)";
+  pool.query(SQL, [nome], (err) => {
     if (err) {
       console.error("Erro ao inserir local:", err);
       res.status(500).send({ error: "Erro interno do servidor" });
@@ -646,13 +237,13 @@ app.post("/Local", (req, res) => {
 
 // Consultar todos os locais
 app.get("/local", (req, res) => {
-  const SQL = "SELECT id,nome FROM local";
-  db.query(SQL, (err, result) => {
+  const SQL = "SELECT id, nome FROM local";
+  pool.query(SQL, (err, result) => {
     if (err) {
       console.error("Erro ao consultar locais:", err);
       res.status(500).send({ error: "Erro interno do servidor" });
     } else {
-      res.send(result);
+      res.send(result.rows);
     }
   });
 });
@@ -662,27 +253,23 @@ app.put("/local/:id", (req, res) => {
   const { nome } = req.body;
   const { id } = req.params;
 
-  try {
-    const SQL = "UPDATE local SET nome = ? WHERE id = ?";
-    db.query(SQL, [nome, id], (err, result) => {
-      if (err) {
-        console.error("Erro ao editar local:", err);
-        res.status(500).send({ error: "Erro interno do servidor" });
-      } else {
-        console.log("Local editado com sucesso");
-        res.send({ message: "Local editado com sucesso" });
-      }
-    });
-  } catch (err) {
-    res.status(400).send({ error: "Erro interno do servidor" });
-  }
+  const SQL = "UPDATE local SET nome = $1 WHERE id = $2";
+  pool.query(SQL, [nome, id], (err) => {
+    if (err) {
+      console.error("Erro ao editar local:", err);
+      res.status(500).send({ error: "Erro interno do servidor" });
+    } else {
+      console.log("Local editado com sucesso");
+      res.send({ message: "Local editado com sucesso" });
+    }
+  });
 });
 
 // Excluir local
 app.delete("/local/:id", (req, res) => {
   const { id } = req.params;
-  const SQL = "DELETE FROM local WHERE id = ?";
-  db.query(SQL, [id], (err, result) => {
+  const SQL = "DELETE FROM local WHERE id = $1";
+  pool.query(SQL, [id], (err) => {
     if (err) {
       console.error("Erro ao excluir local:", err);
       res.status(500).send({ error: "Erro interno do servidor" });
@@ -693,16 +280,16 @@ app.delete("/local/:id", (req, res) => {
   });
 });
 
-//novo prodiuto
+// Adicionar novo produto
 app.post("/produto", upload.single("imagem"), (req, res) => {
   const { nome, descricao, codigo_barras, local_id, endereco_id } = req.body;
   const nomeImagem = req.file.filename; // Nome do arquivo enviado pelo multer
   const SQL =
-    "INSERT INTO produto (nome, descricao, codigo_barras, local_id, endereco_id, imagem) VALUES (?, ?, ?, ?, ?, ?)";
-  db.query(
+    "INSERT INTO produto (nome, descricao, codigo_barras, local_id, endereco_id, imagem) VALUES ($1, $2, $3, $4, $5, $6)";
+  pool.query(
     SQL,
     [nome, descricao, codigo_barras, local_id, endereco_id, nomeImagem],
-    (err, result) => {
+    (err) => {
       if (err) {
         console.error("Erro ao inserir produto:", err);
         res.status(500).send({ error: "Erro interno do servidor" });
@@ -718,8 +305,8 @@ app.post("/produto", upload.single("imagem"), (req, res) => {
 app.get("/produto", (req, res) => {
   const SQL = `
     SELECT 
-    produto.id AS produto_id, 
-    produto.imagem  ,  
+      produto.id AS produto_id, 
+      produto.imagem,  
       produto.nome AS produto_nome, 
       produto.descricao AS produto_descricao, 
       produto.codigo_barras AS produto_codigo_barras, 
@@ -734,12 +321,12 @@ app.get("/produto", (req, res) => {
     INNER JOIN endereco ON produto.endereco_id = endereco.id;
   `;
 
-  db.query(SQL, (err, result) => {
+  pool.query(SQL, (err, result) => {
     if (err) {
       console.error("Erro ao consultar produtos:", err);
       res.status(500).send({ error: "Erro interno do servidor" });
     } else {
-      res.send(result);
+      res.send(result.rows);
     }
   });
 });
@@ -749,11 +336,11 @@ app.put("/produto/:id", (req, res) => {
   const { nome, descricao, codigo_barras, local_id, endereco_id } = req.body;
   const { id } = req.params;
   const SQL =
-    "UPDATE produto SET nome = ?, descricao = ?, codigo_barras = ?, local_id = ?, endereco_id = ? WHERE id = ?";
-  db.query(
+    "UPDATE produto SET nome = $1, descricao = $2, codigo_barras = $3, local_id = $4, endereco_id = $5 WHERE id = $6";
+  pool.query(
     SQL,
     [nome, descricao, codigo_barras, local_id, endereco_id, id],
-    (err, result) => {
+    (err) => {
       if (err) {
         console.error("Erro ao editar produto:", err);
         res.status(500).send({ error: "Erro interno do servidor" });
@@ -768,8 +355,8 @@ app.put("/produto/:id", (req, res) => {
 // Excluir produto
 app.delete("/produto/:id", (req, res) => {
   const { id } = req.params;
-  const SQL = "DELETE FROM produto WHERE id = ?";
-  db.query(SQL, [id], (err, result) => {
+  const SQL = "DELETE FROM produto WHERE id = $1";
+  pool.query(SQL, [id], (err) => {
     if (err) {
       console.error("Erro ao excluir produto:", err);
       res.status(500).send({ error: "Erro interno do servidor" });
